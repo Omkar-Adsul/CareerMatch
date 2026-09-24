@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Dashboard - CareerMatch</title>
+
+    <style>
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            margin: 0;
+        }
+
+        .navbar {
+            background: #1f2937;
+            padding: 18px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar h2 {
+            color: white;
+            margin: 0;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+        }
+
+        .container {
+            width: 80%;
+            max-width: 900px;
+            margin: 40px auto;
+        }
+
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            margin-bottom: 25px;
+        }
+
+        h1 {
+            color: #1f2937;
+        }
+
+        .profile-item {
+            margin: 12px 0;
+        }
+
+        .profile-item strong {
+            display: inline-block;
+            width: 180px;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 12px 20px;
+            background: #2563eb;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="navbar">
+
+        <h2>CareerMatch</h2>
+
+        <div>
+
+            <a href="{{ url_for('dashboard') }}">
+                Dashboard
+            </a>
+
+            <a href="{{ url_for('profile') }}">
+                My Profile
+            </a>
+
+            <a href="{{ url_for('logout') }}">
+                Logout
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <div class="container">
+
+        <div class="card">
+
+            <h1>
+                Welcome, {{ profile[0] }}!
+            </h1>
+
+            <p>
+                Your CareerMatch profile information:
+            </p>
+
+            <div class="profile-item">
+                <strong>Email:</strong>
+                {{ profile[1] }}
+            </div>
+
+            <div class="profile-item">
+                <strong>Education:</strong>
+                {{ profile[2] or "Not added" }}
+            </div>
+
+            <div class="profile-item">
+                <strong>Degree:</strong>
+                {{ profile[3] or "Not added" }}
+            </div>
+
+            <div class="profile-item">
+                <strong>Graduation Year:</strong>
+                {{ profile[4] or "Not added" }}
+            </div>
+
+            <div class="profile-item">
+                <strong>Experience:</strong>
+                {{ profile[5] if profile[5] is not none else "Not added" }}
+            </div>
+
+            <div class="profile-item">
+                <strong>Preferred Role:</strong>
+                {{ profile[6] or "Not added" }}
+            </div>
+
+            <div class="profile-item">
+                <strong>Preferred Location:</strong>
+                {{ profile[7] or "Not added" }}
+            </div>
+
+            <br>
+
+            <a
+                href="{{ url_for('profile') }}"
+                class="button"
+            >
+                Edit Profile
+            </a>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>
