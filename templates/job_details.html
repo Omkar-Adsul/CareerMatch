@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>
+        {{ job[1] }} | CareerMatch
+    </title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <style>
+
+        .details-page {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .details-card {
+            background: white;
+            padding: 35px;
+            border-radius: 16px;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.08);
+        }
+
+        .job-badge {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            background: #e8f0ff;
+            color: #2563eb;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .details-card h1 {
+            font-size: 34px;
+            margin: 15px 0 5px;
+        }
+
+        .company-name {
+            font-size: 18px;
+            color: #555;
+            margin-bottom: 25px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns:
+                repeat(2, 1fr);
+            gap: 15px;
+            margin: 25px 0;
+        }
+
+        .info-item {
+            padding: 15px;
+            background: #f7f8fa;
+            border-radius: 10px;
+        }
+
+        .info-item strong {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .section {
+            margin-top: 30px;
+        }
+
+        .description {
+            line-height: 1.7;
+            color: #555;
+            white-space: pre-line;
+        }
+
+        .skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .skill {
+            background: #eef2ff;
+            padding: 8px 13px;
+            border-radius: 20px;
+            font-size: 13px;
+        }
+
+        .apply-box {
+            margin-top: 35px;
+            padding: 25px;
+            background: #f7f8fa;
+            border-radius: 12px;
+        }
+
+        .apply-btn {
+            border: none;
+            padding: 13px 25px;
+            background: #2563eb;
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 15px;
+        }
+
+        .already-applied {
+            background: #e8f8ee;
+            color: #16803c;
+            padding: 15px;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+
+        .external-link {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 12px 20px;
+            background: #16a34a;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+
+        @media (max-width: 700px) {
+
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+<div class="details-page">
+
+    <div class="details-card">
+
+        <span class="job-badge">
+            {{ job[4] }}
+        </span>
+
+
+        <h1>
+            {{ job[1] }}
+        </h1>
+
+
+        <div class="company-name">
+            {{ job[2] }}
+        </div>
+
+
+        <div class="info-grid">
+
+            <div class="info-item">
+
+                <strong>
+                    📍 Location
+                </strong>
+
+                {{ job[5] or 'Not specified' }}
+
+            </div>
+
+
+            <div class="info-item">
+
+                <strong>
+                    💼 Experience
+                </strong>
+
+                {{ job[6] or 'Not specified' }}
+
+            </div>
+
+
+            <div class="info-item">
+
+                <strong>
+                    🎓 Education
+                </strong>
+
+                {{ job[7] or 'Not specified' }}
+
+            </div>
+
+
+            <div class="info-item">
+
+                <strong>
+                    💰 Salary / Stipend
+                </strong>
+
+                {% if job[8] and job[9] %}
+
+                    ₹{{ "{:,.0f}".format(job[8]) }}
+                    -
+                    ₹{{ "{:,.0f}".format(job[9]) }}
+
+                {% elif job[8] %}
+
+                    ₹{{ "{:,.0f}".format(job[8]) }}
+
+                {% else %}
+
+                    Not specified
+
+                {% endif %}
+
+            </div>
+
+
+            <div class="info-item">
+
+                <strong>
+                    📅 Application Deadline
+                </strong>
+
+                {{ job[10] or 'Not specified' }}
+
+            </div>
+
+
+            <div class="info-item">
+
+                <strong>
+                    🏢 Company
+                </strong>
+
+                {{ job[2] }}
+
+            </div>
+
+        </div>
+
+
+        <!-- DESCRIPTION -->
+
+        <div class="section">
+
+            <h2>
+                Job Description
+            </h2>
+
+            <div class="description">
+                {{ job[3] or 'No description available.' }}
+            </div>
+
+        </div>
+
+
+        <!-- SKILLS -->
+
+        <div class="section">
+
+            <h2>
+                Required Skills
+            </h2>
+
+
+            {% if required_skills %}
+
+            <div class="skills">
+
+                {% for skill in required_skills %}
+
+                <span class="skill">
+
+                    {{ skill[0] }}
+
+                    {% if skill[1] %}
+                        • Importance {{ skill[1] }}
+                    {% endif %}
+
+                </span>
+
+                {% endfor %}
+
+            </div>
+
+            {% else %}
+
+            <p>
+                No specific skills listed.
+            </p>
+
+            {% endif %}
+
+        </div>
+
+
+        <!-- EXTERNAL APPLICATION LINK -->
+
+        {% if job[11] %}
+
+        <div class="section">
+
+            <a
+                href="{{ job[11] }}"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="external-link"
+            >
+                Visit Application Website
+            </a>
+
+        </div>
+
+        {% endif %}
+
+
+        <!-- APPLY -->
+
+        <div class="apply-box">
+
+            {% if application %}
+
+                <div class="already-applied">
+
+                    ✓ You have already applied
+                    for this opportunity.
+
+                    <br><br>
+
+                    Application Status:
+                    {{ application[1] }}
+
+                </div>
+
+
+            {% elif not job[12] %}
+
+                <div class="already-applied">
+
+                    This opportunity is currently closed.
+
+                </div>
+
+
+            {% else %}
+
+                <h2>
+                    Apply Now
+                </h2>
+
+                <p>
+                    Submit your application through CareerMatch.
+                </p>
+
+
+                <form
+                    method="POST"
+                    action="{{ url_for(
+                        'apply_job',
+                        job_id=job[0]
+                    ) }}"
+                >
+
+                    <button
+                        type="submit"
+                        class="apply-btn"
+                    >
+                        Apply Now
+                    </button>
+
+                </form>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

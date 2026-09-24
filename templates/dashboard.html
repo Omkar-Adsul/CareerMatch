@@ -1,167 +1,545 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
-
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Dashboard - CareerMatch</title>
 
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
         body {
-            font-family: Arial, sans-serif;
-            background: #f4f7fb;
-            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f5f7fb;
+            color: #222;
         }
+
+        /* ================= NAVBAR ================= */
 
         .navbar {
-            background: #1f2937;
-            padding: 18px 40px;
+            background: #ffffff;
+            height: 70px;
             display: flex;
-            justify-content: space-between;
             align-items: center;
+            justify-content: space-between;
+            padding: 0 7%;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
 
-        .navbar h2 {
-            color: white;
-            margin: 0;
-        }
-
-        .navbar a {
-            color: white;
+        .logo {
+            font-size: 25px;
+            font-weight: bold;
+            color: #2563eb;
             text-decoration: none;
-            margin-left: 20px;
         }
+
+        .logo span {
+            color: #111827;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #374151;
+            font-size: 15px;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #2563eb;
+        }
+
+        .logout-btn {
+            background: #ef4444;
+            color: white !important;
+            padding: 9px 16px;
+            border-radius: 7px;
+        }
+
+        .logout-btn:hover {
+            background: #dc2626;
+        }
+
+        /* ================= CONTAINER ================= */
 
         .container {
-            width: 80%;
-            max-width: 900px;
+            width: 86%;
+            max-width: 1200px;
             margin: 40px auto;
         }
 
-        .card {
+        /* ================= WELCOME ================= */
+
+        .welcome {
+            background: linear-gradient(135deg, #2563eb, #4f46e5);
+            color: white;
+            padding: 35px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 25px rgba(37, 99, 235, 0.20);
+        }
+
+        .welcome h1 {
+            font-size: 30px;
+            margin-bottom: 10px;
+        }
+
+        .welcome p {
+            font-size: 16px;
+            opacity: 0.95;
+        }
+
+        /* ================= SECTION TITLE ================= */
+
+        .section-title {
+            font-size: 23px;
+            margin-bottom: 20px;
+            color: #111827;
+        }
+
+        /* ================= DASHBOARD CARDS ================= */
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 22px;
+            margin-bottom: 35px;
+        }
+
+        .dashboard-card {
             background: white;
-            padding: 30px;
+            padding: 25px;
             border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-            margin-bottom: 25px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.07);
+            border: 1px solid #e5e7eb;
+            transition: 0.3s;
         }
 
-        h1 {
-            color: #1f2937;
+        .dashboard-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 22px rgba(0, 0, 0, 0.10);
         }
 
-        .profile-item {
-            margin: 12px 0;
+        .card-icon {
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #eff6ff;
+            color: #2563eb;
+            border-radius: 10px;
+            font-size: 23px;
+            margin-bottom: 17px;
         }
 
-        .profile-item strong {
+        .dashboard-card h3 {
+            font-size: 19px;
+            margin-bottom: 10px;
+            color: #111827;
+        }
+
+        .dashboard-card p {
+            color: #6b7280;
+            line-height: 1.6;
+            font-size: 14px;
+            margin-bottom: 18px;
+        }
+
+        .card-btn {
             display: inline-block;
-            width: 180px;
-        }
-
-        .button {
-            display: inline-block;
-            padding: 12px 20px;
+            text-decoration: none;
             background: #2563eb;
             color: white;
-            text-decoration: none;
-            border-radius: 6px;
+            padding: 10px 17px;
+            border-radius: 7px;
+            font-size: 14px;
+            transition: 0.3s;
         }
 
-    </style>
+        .card-btn:hover {
+            background: #1d4ed8;
+        }
 
+        .secondary-btn {
+            background: #111827;
+        }
+
+        .secondary-btn:hover {
+            background: #374151;
+        }
+
+        /* ================= QUICK ACTIONS ================= */
+
+        .quick-section {
+            background: white;
+            padding: 28px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+            border: 1px solid #e5e7eb;
+        }
+
+        .quick-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .quick-actions a {
+            text-decoration: none;
+            padding: 11px 18px;
+            border-radius: 7px;
+            border: 1px solid #dbeafe;
+            background: #eff6ff;
+            color: #2563eb;
+            font-size: 14px;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+
+        .quick-actions a:hover {
+            background: #2563eb;
+            color: white;
+        }
+
+        /* ================= FOOTER ================= */
+
+        footer {
+            text-align: center;
+            padding: 25px;
+            margin-top: 50px;
+            color: #6b7280;
+            font-size: 14px;
+        }
+
+        /* ================= RESPONSIVE ================= */
+
+        @media (max-width: 900px) {
+            .dashboard-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .navbar {
+                padding: 0 4%;
+            }
+
+            .nav-links {
+                gap: 15px;
+            }
+        }
+
+        @media (max-width: 650px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .navbar {
+                height: auto;
+                padding: 18px 5%;
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .container {
+                width: 92%;
+                margin-top: 25px;
+            }
+
+            .welcome {
+                padding: 25px;
+            }
+
+            .welcome h1 {
+                font-size: 24px;
+            }
+
+            .quick-actions {
+                flex-direction: column;
+            }
+
+            .quick-actions a {
+                text-align: center;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-    <div class="navbar">
+    <!-- ================= NAVBAR ================= -->
 
-        <h2>CareerMatch</h2>
+    <nav class="navbar">
 
-        <div>
+        <a href="{{ url_for('dashboard') }}" class="logo">
+            Career<span>Match</span>
+        </a>
+
+        <div class="nav-links">
 
             <a href="{{ url_for('dashboard') }}">
                 Dashboard
             </a>
 
             <a href="{{ url_for('profile') }}">
-                My Profile
+                Profile
             </a>
 
-            <a href="{{ url_for('logout') }}">
+            <a href="{{ url_for('jobs') }}">
+                Jobs & Internships
+            </a>
+
+            <a href="{{ url_for('my_applications') }}">
+                My Applications
+            </a>
+
+            <a href="{{ url_for('logout') }}" class="logout-btn">
                 Logout
             </a>
 
         </div>
 
-    </div>
+    </nav>
 
 
-    <div class="container">
+    <!-- ================= MAIN CONTENT ================= -->
 
-        <div class="card">
+    <main class="container">
+
+        <!-- Welcome Section -->
+
+        <section class="welcome">
 
             <h1>
-                Welcome, {{ profile[0] }}!
+                Welcome,
+                {{ session.get('full_name', session.get('username', 'User')) }}!
             </h1>
 
             <p>
-                Your CareerMatch profile information:
+                Find the right job and internship opportunities based on
+                your skills, education and career interests.
             </p>
 
-            <div class="profile-item">
-                <strong>Email:</strong>
-                {{ profile[1] }}
+        </section>
+
+
+        <!-- ================= DASHBOARD FEATURES ================= -->
+
+        <h2 class="section-title">
+            CareerMatch
+        </h2>
+
+        <div class="dashboard-grid">
+
+
+            <!-- Profile -->
+
+            <div class="dashboard-card">
+
+                <div class="card-icon">
+                    👤
+                </div>
+
+                <h3>
+                    My Profile
+                </h3>
+
+                <p>
+                    Complete and update your personal information,
+                    education, skills and career preferences.
+                </p>
+
+                <a href="{{ url_for('profile') }}" class="card-btn">
+                    View Profile
+                </a>
+
             </div>
 
-            <div class="profile-item">
-                <strong>Education:</strong>
-                {{ profile[2] or "Not added" }}
+
+            <!-- Jobs & Internships -->
+
+            <div class="dashboard-card">
+
+                <div class="card-icon">
+                    💼
+                </div>
+
+                <h3>
+                    Jobs & Internships
+                </h3>
+
+                <p>
+                    Explore available job and internship opportunities
+                    and search using role, company and location.
+                </p>
+
+                <a href="{{ url_for('jobs') }}" class="card-btn">
+                    Explore Opportunities
+                </a>
+
             </div>
 
-            <div class="profile-item">
-                <strong>Degree:</strong>
-                {{ profile[3] or "Not added" }}
+
+            <!-- My Applications -->
+
+            <div class="dashboard-card">
+
+                <div class="card-icon">
+                    📋
+                </div>
+
+                <h3>
+                    My Applications
+                </h3>
+
+                <p>
+                    View your submitted applications and track their
+                    current application status.
+                </p>
+
+                <a href="{{ url_for('my_applications') }}"
+                   class="card-btn secondary-btn">
+                    View Applications
+                </a>
+
             </div>
 
-            <div class="profile-item">
-                <strong>Graduation Year:</strong>
-                {{ profile[4] or "Not added" }}
+
+            <!-- Recommended Jobs -->
+
+            <div class="dashboard-card">
+
+                <div class="card-icon">
+                    ⭐
+                </div>
+
+                <h3>
+                    Recommended Jobs
+                </h3>
+
+                <p>
+                    Get personalized job and internship recommendations
+                    based on your skills and profile.
+                </p>
+
+                <a href="{{ url_for('jobs') }}" class="card-btn">
+                    Find Opportunities
+                </a>
+
             </div>
 
-            <div class="profile-item">
-                <strong>Experience:</strong>
-                {{ profile[5] if profile[5] is not none else "Not added" }}
+
+            <!-- Skill Development -->
+
+            <div class="dashboard-card">
+
+                <div class="card-icon">
+                    📚
+                </div>
+
+                <h3>
+                    Skills
+                </h3>
+
+                <p>
+                    Add and manage your technical and professional skills
+                    to improve your career opportunities.
+                </p>
+
+                <a href="{{ url_for('profile') }}" class="card-btn">
+                    Manage Skills
+                </a>
+
             </div>
 
-            <div class="profile-item">
-                <strong>Preferred Role:</strong>
-                {{ profile[6] or "Not added" }}
+
+            <!-- Career Opportunities -->
+
+            <div class="dashboard-card">
+
+                <div class="card-icon">
+                    🚀
+                </div>
+
+                <h3>
+                    Career Opportunities
+                </h3>
+
+                <p>
+                    Discover opportunities that match your education,
+                    experience, skills and preferred location.
+                </p>
+
+                <a href="{{ url_for('jobs') }}" class="card-btn">
+                    Explore Now
+                </a>
+
             </div>
-
-            <div class="profile-item">
-                <strong>Preferred Location:</strong>
-                {{ profile[7] or "Not added" }}
-            </div>
-
-            <br>
-
-            <a
-                href="{{ url_for('profile') }}"
-                class="button"
-            >
-                Edit Profile
-            </a>
 
         </div>
 
-    </div>
+
+        <!-- ================= QUICK ACTIONS ================= -->
+
+        <section class="quick-section">
+
+            <h2 class="section-title">
+                Quick Actions
+            </h2>
+
+            <div class="quick-actions">
+
+                <a href="{{ url_for('profile') }}">
+                    👤 Update Profile
+                </a>
+
+                <a href="{{ url_for('jobs') }}">
+                    💼 Browse Jobs
+                </a>
+
+                <a href="{{ url_for('jobs') }}">
+                    🎓 Find Internships
+                </a>
+
+                <a href="{{ url_for('my_applications') }}">
+                    📋 Track Applications
+                </a>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer>
+
+        © 2026 CareerMatch —
+        AI-Powered Job & Internship Recommendation Platform
+
+    </footer>
 
 </body>
-
 </html>
+```

@@ -10,213 +10,21 @@
 
     <title>Login - CareerMatch</title>
 
-    <style>
-
-        * {
-            box-sizing: border-box;
-        }
-
-        body {
-            margin: 0;
-            font-family: Arial, Helvetica, sans-serif;
-            background: #f4f7fb;
-            color: #1f2937;
-        }
-
-        .navbar {
-            background: #1f2937;
-            padding: 18px 50px;
-
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            color: white;
-            text-decoration: none;
-            font-size: 25px;
-            font-weight: bold;
-        }
-
-        .home-link {
-            color: white;
-            text-decoration: none;
-        }
-
-        .home-link:hover {
-            color: #60a5fa;
-        }
-
-        .container {
-            min-height: calc(100vh - 70px);
-
-            display: flex;
-            justify-content: center;
-            align-items: center;
-
-            padding: 40px 20px;
-        }
-
-        .card {
-            width: 100%;
-            max-width: 450px;
-
-            background: white;
-
-            padding: 35px;
-
-            border-radius: 12px;
-
-            box-shadow:
-                0 5px 20px rgba(0, 0, 0, 0.08);
-        }
-
-        .card h1 {
-            text-align: center;
-            margin-bottom: 10px;
-            color: #111827;
-        }
-
-        .subtitle {
-            text-align: center;
-            color: #6b7280;
-            margin-bottom: 30px;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        label {
-            display: block;
-            font-weight: bold;
-            margin-bottom: 8px;
-        }
-
-        input {
-            width: 100%;
-
-            padding: 12px;
-
-            border: 1px solid #d1d5db;
-            border-radius: 6px;
-
-            font-size: 15px;
-
-            outline: none;
-        }
-
-        input:focus {
-            border-color: #2563eb;
-        }
-
-        .button {
-            width: 100%;
-
-            padding: 13px;
-
-            border: none;
-            border-radius: 6px;
-
-            background: #2563eb;
-            color: white;
-
-            font-size: 16px;
-            font-weight: bold;
-
-            cursor: pointer;
-        }
-
-        .button:hover {
-            background: #1d4ed8;
-        }
-
-        .flash {
-            padding: 12px;
-
-            margin-bottom: 20px;
-
-            border-radius: 6px;
-
-            background: #fee2e2;
-            color: #991b1b;
-        }
-
-        .register-text {
-            text-align: center;
-            margin-top: 25px;
-            color: #6b7280;
-        }
-
-        .register-text a {
-            color: #2563eb;
-            text-decoration: none;
-            font-weight: bold;
-        }
-
-        .register-text a:hover {
-            text-decoration: underline;
-        }
-
-        @media (max-width: 600px) {
-
-            .navbar {
-                padding: 18px 25px;
-            }
-
-            .card {
-                padding: 25px;
-            }
-
-        }
-
-    </style>
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
 
 </head>
 
-
 <body>
 
+    <div class="auth-container">
 
-    <!-- NAVBAR -->
+        <div class="auth-box">
 
-    <nav class="navbar">
+            <h1>CareerMatch</h1>
 
-        <a
-            href="{{ url_for('home') }}"
-            class="logo"
-        >
-            CareerMatch
-        </a>
+            <h2>Login</h2>
 
-        <a
-            href="{{ url_for('home') }}"
-            class="home-link"
-        >
-            Home
-        </a>
-
-    </nav>
-
-
-
-    <!-- LOGIN -->
-
-    <div class="container">
-
-        <div class="card">
-
-            <h1>
-                Welcome Back
-            </h1>
-
-            <p class="subtitle">
-                Login to your CareerMatch account
-            </p>
-
-
-            <!-- FLASH MESSAGES -->
 
             {% with messages = get_flashed_messages(with_categories=true) %}
 
@@ -224,7 +32,7 @@
 
                     {% for category, message in messages %}
 
-                        <div class="flash">
+                        <div class="message {{ category }}">
                             {{ message }}
                         </div>
 
@@ -235,71 +43,47 @@
             {% endwith %}
 
 
-            <!-- LOGIN FORM -->
+            <form method="POST"
+                  action="{{ url_for('login') }}">
 
-            <form
-                method="POST"
-                action="{{ url_for('login') }}"
-            >
+                <label>Email</label>
 
-                <div class="form-group">
-
-                    <label for="email">
-                        Email
-                    </label>
-
-                    <input
-                        type="email"
-                        id="email"
-                        name="email"
-                        placeholder="Enter your email"
-                        required
-                    >
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label for="password">
-                        Password
-                    </label>
-
-                    <input
-                        type="password"
-                        id="password"
-                        name="password"
-                        placeholder="Enter your password"
-                        required
-                    >
-
-                </div>
-
-
-                <button
-                    type="submit"
-                    class="button"
+                <input
+                    type="email"
+                    name="email"
+                    placeholder="Enter your email"
+                    required
                 >
+
+
+                <label>Password</label>
+
+                <input
+                    type="password"
+                    name="password"
+                    placeholder="Enter your password"
+                    required
+                >
+
+
+                <button type="submit">
                     Login
                 </button>
 
             </form>
 
 
-            <div class="register-text">
-
+            <p>
                 Don't have an account?
 
                 <a href="{{ url_for('register') }}">
-                    Register
+                    Create Account
                 </a>
-
-            </div>
+            </p>
 
         </div>
 
     </div>
-
 
 </body>
 

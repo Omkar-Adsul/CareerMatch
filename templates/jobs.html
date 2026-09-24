@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Jobs & Internships | CareerMatch</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <style>
+
+        .jobs-page {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .jobs-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .jobs-header h1 {
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+
+        .jobs-header p {
+            color: #666;
+        }
+
+        .search-box {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            margin-bottom: 30px;
+        }
+
+        .search-form {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr auto;
+            gap: 12px;
+        }
+
+        .search-form input,
+        .search-form select {
+            padding: 13px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        .search-form button {
+            border: none;
+            padding: 13px 22px;
+            border-radius: 8px;
+            cursor: pointer;
+            background: #2563eb;
+            color: white;
+            font-weight: bold;
+        }
+
+        .job-grid {
+            display: grid;
+            grid-template-columns:
+                repeat(auto-fit, minmax(320px, 1fr));
+            gap: 22px;
+        }
+
+        .job-card {
+            background: white;
+            border-radius: 15px;
+            padding: 22px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: 0.2s;
+        }
+
+        .job-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .job-type {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            background: #e8f0ff;
+            color: #2563eb;
+        }
+
+        .job-card h2 {
+            margin: 15px 0 6px;
+            font-size: 21px;
+        }
+
+        .company {
+            font-weight: 600;
+            color: #555;
+        }
+
+        .job-info {
+            margin: 16px 0;
+            line-height: 1.9;
+            color: #555;
+            font-size: 14px;
+        }
+
+        .view-btn {
+            display: block;
+            width: 100%;
+            text-align: center;
+            padding: 11px;
+            border-radius: 8px;
+            text-decoration: none;
+            background: #2563eb;
+            color: white;
+            font-weight: bold;
+            box-sizing: border-box;
+        }
+
+        .no-jobs {
+            text-align: center;
+            padding: 50px;
+            background: white;
+            border-radius: 15px;
+        }
+
+        @media (max-width: 800px) {
+
+            .search-form {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+<div class="jobs-page">
+
+    <div class="jobs-header">
+
+        <h1>
+            Jobs & Internships
+        </h1>
+
+        <p>
+            Discover opportunities that match your career goals.
+        </p>
+
+    </div>
+
+
+    <!-- SEARCH AND FILTER -->
+
+    <div class="search-box">
+
+        <form
+            method="GET"
+            action="{{ url_for('jobs') }}"
+            class="search-form"
+        >
+
+            <input
+                type="text"
+                name="search"
+                placeholder="Search job title or company"
+                value="{{ search }}"
+            >
+
+
+            <select name="job_type">
+
+                <option value="">
+                    All Types
+                </option>
+
+                <option
+                    value="Job"
+                    {% if job_type == 'Job' %}
+                    selected
+                    {% endif %}
+                >
+                    Job
+                </option>
+
+                <option
+                    value="Internship"
+                    {% if job_type == 'Internship' %}
+                    selected
+                    {% endif %}
+                >
+                    Internship
+                </option>
+
+            </select>
+
+
+            <input
+                type="text"
+                name="location"
+                placeholder="Location"
+                value="{{ location }}"
+            >
+
+
+            <button type="submit">
+                Search
+            </button>
+
+        </form>
+
+    </div>
+
+
+    <!-- JOB LIST -->
+
+    {% if jobs %}
+
+    <div class="job-grid">
+
+        {% for job in jobs %}
+
+        <div class="job-card">
+
+            <span class="job-type">
+                {{ job[4] }}
+            </span>
+
+
+            <h2>
+                {{ job[1] }}
+            </h2>
+
+
+            <div class="company">
+                {{ job[2] }}
+            </div>
+
+
+            <div class="job-info">
+
+                📍
+                {{ job[5] or 'Not specified' }}
+
+                <br>
+
+                💼
+                {{ job[6] or 'Not specified' }}
+
+                <br>
+
+                🎓
+                {{ job[7] or 'Not specified' }}
+
+                <br>
+
+                💰
+
+                {% if job[8] and job[9] %}
+
+                    ₹{{ "{:,.0f}".format(job[8]) }}
+                    -
+                    ₹{{ "{:,.0f}".format(job[9]) }}
+
+                {% elif job[8] %}
+
+                    ₹{{ "{:,.0f}".format(job[8]) }}
+
+                {% else %}
+
+                    Not specified
+
+                {% endif %}
+
+                <br>
+
+                📅
+                Deadline:
+                {{ job[10] or 'Not specified' }}
+
+            </div>
+
+
+            <a
+                href="{{ url_for(
+                    'job_details',
+                    job_id=job[0]
+                ) }}"
+                class="view-btn"
+            >
+                View Details
+            </a>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+    {% else %}
+
+    <div class="no-jobs">
+
+        <h2>
+            No opportunities found
+        </h2>
+
+        <p>
+            Try changing your search or filters.
+        </p>
+
+    </div>
+
+    {% endif %}
+
+</div>
+
+</body>
+
+</html>

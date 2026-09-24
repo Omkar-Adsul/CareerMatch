@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>
+        My Applications | CareerMatch
+    </title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <style>
+
+        .applications-page {
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .applications-page h1 {
+            margin-bottom: 25px;
+        }
+
+        .application-card {
+            background: white;
+            padding: 22px;
+            border-radius: 14px;
+            margin-bottom: 15px;
+            box-shadow: 0 5px 18px rgba(0,0,0,0.07);
+        }
+
+        .application-card h2 {
+            margin: 0 0 7px;
+        }
+
+        .application-info {
+            color: #666;
+            line-height: 1.8;
+        }
+
+        .status {
+            display: inline-block;
+            margin-top: 12px;
+            padding: 6px 12px;
+            border-radius: 20px;
+            background: #eef2ff;
+            color: #2563eb;
+            font-weight: bold;
+            font-size: 13px;
+        }
+
+        .empty {
+            text-align: center;
+            padding: 50px;
+            background: white;
+            border-radius: 15px;
+        }
+
+        .browse-btn {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 10px 18px;
+            background: #2563eb;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+<div class="applications-page">
+
+    <h1>
+        My Applications
+    </h1>
+
+
+    {% if applications %}
+
+        {% for application in applications %}
+
+        <div class="application-card">
+
+            <h2>
+                {{ application[1] }}
+            </h2>
+
+
+            <div class="application-info">
+
+                🏢
+                {{ application[2] }}
+
+                <br>
+
+                💼
+                {{ application[3] }}
+
+                <br>
+
+                📍
+                {{ application[4] }}
+
+                <br>
+
+                📅
+                Applied on:
+                {{ application[6] }}
+
+            </div>
+
+
+            <span class="status">
+
+                {{ application[5] }}
+
+            </span>
+
+        </div>
+
+        {% endfor %}
+
+
+    {% else %}
+
+        <div class="empty">
+
+            <h2>
+                No Applications Yet
+            </h2>
+
+            <p>
+                You have not applied to any jobs or internships.
+            </p>
+
+            <a
+                href="{{ url_for('jobs') }}"
+                class="browse-btn"
+            >
+                Browse Jobs & Internships
+            </a>
+
+        </div>
+
+    {% endif %}
+
+</div>
+
+</body>
+
+</html>
