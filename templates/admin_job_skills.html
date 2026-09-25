@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Manage Skills | CareerMatch</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f7fb;
+            color: #1f2937;
+        }
+
+        .navbar {
+            height: 70px;
+            background: #ffffff;
+            border-bottom: 1px solid #e5e7eb;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 35px;
+        }
+
+        .logo {
+            color: #2563eb;
+            text-decoration: none;
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .back {
+            color: #475569;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .back:hover {
+            color: #2563eb;
+        }
+
+        .container {
+            width: 92%;
+            max-width: 1000px;
+            margin: 35px auto;
+        }
+
+        .header {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 14px;
+            padding: 25px;
+            margin-bottom: 22px;
+        }
+
+        .header h1 {
+            font-size: 26px;
+            margin-bottom: 8px;
+        }
+
+        .header p {
+            color: #6b7280;
+            font-size: 14px;
+        }
+
+        .job-info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 6px 11px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .job {
+            background: #dbeafe;
+            color: #1d4ed8;
+        }
+
+        .internship {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .card {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 14px;
+            padding: 25px;
+            margin-bottom: 22px;
+        }
+
+        .card h2 {
+            font-size: 19px;
+            margin-bottom: 18px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 180px auto;
+            gap: 15px;
+            align-items: end;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 7px;
+            color: #374151;
+        }
+
+        select {
+            width: 100%;
+            padding: 11px 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            background: white;
+            font-size: 14px;
+            outline: none;
+        }
+
+        select:focus {
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, .10);
+        }
+
+        .add-btn {
+            border: none;
+            background: #2563eb;
+            color: white;
+            padding: 11px 20px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .add-btn:hover {
+            background: #1d4ed8;
+        }
+
+        .skill-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .skill-item {
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+            padding: 15px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+        }
+
+        .skill-name {
+            font-weight: 700;
+            color: #111827;
+        }
+
+        .skill-meta {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .importance {
+            background: #ede9fe;
+            color: #6d28d9;
+            padding: 5px 9px;
+            border-radius: 15px;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .remove-btn {
+            border: none;
+            background: #fee2e2;
+            color: #b91c1c;
+            padding: 7px 11px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .remove-btn:hover {
+            background: #fecaca;
+        }
+
+        .empty {
+            text-align: center;
+            padding: 35px 15px;
+            color: #6b7280;
+        }
+
+        .flash {
+            padding: 14px 18px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+
+        .flash.success {
+            background: #dcfce7;
+            color: #166534;
+            border: 1px solid #bbf7d0;
+        }
+
+        .flash.error {
+            background: #fee2e2;
+            color: #991b1b;
+            border: 1px solid #fecaca;
+        }
+
+        .note {
+            margin-top: 15px;
+            padding: 12px 15px;
+            background: #eff6ff;
+            color: #1e40af;
+            border-radius: 8px;
+            font-size: 13px;
+        }
+
+        @media (max-width: 700px) {
+
+            .navbar {
+                padding: 0 18px;
+            }
+
+            .container {
+                width: 95%;
+                margin: 22px auto;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .skill-item {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .skill-meta {
+                width: 100%;
+                justify-content: space-between;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<nav class="navbar">
+
+    <a
+        href="{{ url_for('admin_dashboard') }}"
+        class="logo"
+    >
+        CareerMatch
+    </a>
+
+    <a
+        href="{{ url_for('admin_jobs') }}"
+        class="back"
+    >
+        ← Back to Manage Jobs
+    </a>
+
+</nav>
+
+
+<div class="container">
+
+
+    <div class="header">
+
+        <h1>
+            Required Skills
+        </h1>
+
+        <p>
+            Manage the skills required for this opportunity.
+        </p>
+
+
+        <div class="job-info">
+
+            {% if job.job_type == 'Internship' %}
+
+                <span class="badge internship">
+                    Internship
+                </span>
+
+            {% else %}
+
+                <span class="badge job">
+                    Job
+                </span>
+
+            {% endif %}
+
+
+            <span class="badge">
+                {{ job.title }}
+            </span>
+
+
+            <span class="badge">
+                {{ job.company_name }}
+            </span>
+
+        </div>
+
+    </div>
+
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+
+        {% if messages %}
+
+            {% for category, message in messages %}
+
+                <div class="flash {{ category }}">
+                    {{ message }}
+                </div>
+
+            {% endfor %}
+
+        {% endif %}
+
+    {% endwith %}
+
+
+    <!-- ADD SKILL -->
+
+    <div class="card">
+
+        <h2>
+            Add Required Skill
+        </h2>
+
+
+        <form
+            method="POST"
+            action="{{ url_for('admin_manage_job_skills', job_id=job.job_id) }}"
+        >
+
+            <div class="form-grid">
+
+
+                <div class="form-group">
+
+                    <label for="skill_id">
+                        Skill
+                    </label>
+
+                    <select
+                        name="skill_id"
+                        id="skill_id"
+                        required
+                    >
+
+                        <option value="">
+                            Select a skill
+                        </option>
+
+
+                        {% for skill in all_skills %}
+
+                            <option
+                                value="{{ skill.skill_id }}"
+                            >
+                                {{ skill.skill_name }}
+                            </option>
+
+                        {% endfor %}
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="importance">
+                        Importance
+                    </label>
+
+                    <select
+                        name="importance"
+                        id="importance"
+                    >
+
+                        <option value="1">
+                            1 - Low
+                        </option>
+
+                        <option value="2">
+                            2 - Moderate
+                        </option>
+
+                        <option
+                            value="3"
+                            selected
+                        >
+                            3 - Medium
+                        </option>
+
+                        <option value="4">
+                            4 - High
+                        </option>
+
+                        <option value="5">
+                            5 - Critical
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="add-btn"
+                >
+                    + Add Skill
+                </button>
+
+            </div>
+
+        </form>
+
+
+        <div class="note">
+
+            Skill importance is used by the CareerMatch
+            recommendation system when calculating match scores.
+
+        </div>
+
+    </div>
+
+
+    <!-- CURRENT SKILLS -->
+
+    <div class="card">
+
+        <h2>
+            Current Required Skills
+        </h2>
+
+
+        {% if job_skills %}
+
+            <div class="skill-list">
+
+                {% for skill in job_skills %}
+
+                    <div class="skill-item">
+
+                        <div>
+
+                            <div class="skill-name">
+                                {{ skill.skill_name }}
+                            </div>
+
+                        </div>
+
+
+                        <div class="skill-meta">
+
+                            <span class="importance">
+
+                                Importance:
+                                {{ skill.importance }}/5
+
+                            </span>
+
+
+                            <form
+                                method="POST"
+                                action="{{
+                                    url_for(
+                                        'admin_delete_job_skill',
+                                        job_id=job.job_id,
+                                        job_skill_id=skill.job_skill_id
+                                    )
+                                }}"
+                                onsubmit="return confirm(
+                                    'Remove this required skill?'
+                                );"
+                            >
+
+                                <button
+                                    type="submit"
+                                    class="remove-btn"
+                                >
+                                    Remove
+                                </button>
+
+                            </form>
+
+                        </div>
+
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        {% else %}
+
+            <div class="empty">
+
+                <h3>
+                    No Required Skills Added
+                </h3>
+
+                <p>
+                    Add skills above to improve job recommendations.
+                </p>
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+
+</div>
+
+
+</body>
+
+</html>

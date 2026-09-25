@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Manage Jobs & Internships | CareerMatch</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f7fb;
+            color: #1f2937;
+        }
+
+        .navbar {
+            height: 70px;
+            background: #ffffff;
+            border-bottom: 1px solid #e5e7eb;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 35px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: #2563eb;
+            text-decoration: none;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: #4b5563;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .nav-link:hover {
+            color: #2563eb;
+        }
+
+        .logout {
+            background: #ef4444;
+            color: white;
+            padding: 9px 16px;
+            border-radius: 7px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .container {
+            width: 94%;
+            max-width: 1400px;
+            margin: 35px auto;
+        }
+
+        .page-header {
+            background: white;
+            border-radius: 14px;
+            padding: 28px;
+            margin-bottom: 25px;
+            border: 1px solid #e5e7eb;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .page-header h1 {
+            font-size: 28px;
+            margin-bottom: 7px;
+        }
+
+        .page-header p {
+            color: #6b7280;
+            font-size: 14px;
+        }
+
+        .add-btn {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .add-btn:hover {
+            background: #1d4ed8;
+        }
+
+        .flash {
+            padding: 14px 18px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+
+        .flash.success {
+            background: #dcfce7;
+            color: #166534;
+            border: 1px solid #bbf7d0;
+        }
+
+        .flash.error {
+            background: #fee2e2;
+            color: #991b1b;
+            border: 1px solid #fecaca;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
+            margin-bottom: 25px;
+        }
+
+        .stat-card {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .stat-card span {
+            display: block;
+            color: #6b7280;
+            font-size: 13px;
+            margin-bottom: 8px;
+        }
+
+        .stat-card strong {
+            font-size: 26px;
+        }
+
+        .table-card {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 14px;
+            overflow: hidden;
+        }
+
+        .table-header {
+            padding: 20px 22px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .table-header h2 {
+            font-size: 19px;
+        }
+
+        .table-wrapper {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 1050px;
+        }
+
+        th,
+        td {
+            padding: 15px 18px;
+            text-align: left;
+            border-bottom: 1px solid #edf0f4;
+            font-size: 14px;
+        }
+
+        th {
+            background: #f8fafc;
+            color: #475569;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: .4px;
+        }
+
+        tr:hover td {
+            background: #fafcff;
+        }
+
+        .job-title {
+            font-weight: 700;
+            color: #111827;
+        }
+
+        .company {
+            color: #6b7280;
+            margin-top: 4px;
+            font-size: 13px;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .badge-job {
+            background: #dbeafe;
+            color: #1d4ed8;
+        }
+
+        .badge-internship {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .badge-active {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .badge-inactive {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 7px;
+        }
+
+        .action-btn {
+            display: inline-block;
+            padding: 7px 10px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+        }
+
+        .edit {
+            background: #dbeafe;
+            color: #1d4ed8;
+        }
+
+        .skills {
+            background: #ede9fe;
+            color: #6d28d9;
+        }
+
+        .activate {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .deactivate {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .delete {
+            background: #fee2e2;
+            color: #b91c1c;
+        }
+
+        .empty {
+            text-align: center;
+            padding: 60px 20px;
+            color: #6b7280;
+        }
+
+        .empty h3 {
+            color: #374151;
+            margin-bottom: 8px;
+        }
+
+        @media (max-width: 900px) {
+            .stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .page-header {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .navbar {
+                padding: 0 18px;
+            }
+
+            .nav-link {
+                display: none;
+            }
+
+            .container {
+                width: 96%;
+                margin: 20px auto;
+            }
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
+
+            .page-header h1 {
+                font-size: 23px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<nav class="navbar">
+
+    <a href="{{ url_for('admin_dashboard') }}" class="logo">
+        CareerMatch
+    </a>
+
+    <div class="nav-right">
+
+        <a href="{{ url_for('admin_dashboard') }}" class="nav-link">
+            Dashboard
+        </a>
+
+        <a href="{{ url_for('jobs') }}" class="nav-link">
+            View Jobs
+        </a>
+
+        <a href="{{ url_for('logout') }}" class="logout">
+            Logout
+        </a>
+
+    </div>
+
+</nav>
+
+
+<div class="container">
+
+    <div class="page-header">
+
+        <div>
+            <h1>Manage Jobs & Internships</h1>
+            <p>
+                Add, edit, activate, deactivate and manage job opportunities.
+            </p>
+        </div>
+
+        <button class="add-btn" onclick="openAddForm()">
+            + Add Opportunity
+        </button>
+
+    </div>
+
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+
+        {% if messages %}
+
+            {% for category, message in messages %}
+
+                <div class="flash {{ category }}">
+                    {{ message }}
+                </div>
+
+            {% endfor %}
+
+        {% endif %}
+
+    {% endwith %}
+
+
+    <div class="stats">
+
+        <div class="stat-card">
+            <span>Total Opportunities</span>
+            <strong>{{ jobs|length }}</strong>
+        </div>
+
+        <div class="stat-card">
+            <span>Active</span>
+            <strong>
+                {{ jobs|selectattr('is_active', 'equalto', true)|list|length }}
+            </strong>
+        </div>
+
+        <div class="stat-card">
+            <span>Inactive</span>
+            <strong>
+                {{ jobs|selectattr('is_active', 'equalto', false)|list|length }}
+            </strong>
+        </div>
+
+        <div class="stat-card">
+            <span>Internships</span>
+            <strong>
+                {{ jobs|selectattr('job_type', 'equalto', 'Internship')|list|length }}
+            </strong>
+        </div>
+
+    </div>
+
+
+    <div class="table-card">
+
+        <div class="table-header">
+            <h2>All Opportunities</h2>
+        </div>
+
+        {% if jobs %}
+
+        <div class="table-wrapper">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>ID</th>
+                        <th>Opportunity</th>
+                        <th>Type</th>
+                        <th>Location</th>
+                        <th>Deadline</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    {% for job in jobs %}
+
+                    <tr>
+
+                        <td>
+                            #{{ job.job_id }}
+                        </td>
+
+                        <td>
+
+                            <div class="job-title">
+                                {{ job.title }}
+                            </div>
+
+                            <div class="company">
+                                {{ job.company_name }}
+                            </div>
+
+                        </td>
+
+
+                        <td>
+
+                            {% if job.job_type == 'Internship' %}
+
+                                <span class="badge badge-internship">
+                                    Internship
+                                </span>
+
+                            {% else %}
+
+                                <span class="badge badge-job">
+                                    Job
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+
+                        <td>
+                            {{ job.location or 'Not specified' }}
+                        </td>
+
+
+                        <td>
+
+                            {% if job.application_deadline %}
+
+                                {{ job.application_deadline.strftime('%d %b %Y') }}
+
+                            {% else %}
+
+                                <span style="color:#9ca3af;">
+                                    No deadline
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+
+                        <td>
+
+                            {% if job.is_active %}
+
+                                <span class="badge badge-active">
+                                    Active
+                                </span>
+
+                            {% else %}
+
+                                <span class="badge badge-inactive">
+                                    Inactive
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+
+                        <td>
+
+                            <div class="actions">
+
+                                <a
+                                    href="{{ url_for('admin_edit_job', job_id=job.job_id) }}"
+                                    class="action-btn edit"
+                                >
+                                    Edit
+                                </a>
+
+
+                                <a
+                                    href="{{ url_for('admin_job_skills', job_id=job.job_id) }}"
+                                    class="action-btn skills"
+                                >
+                                    Skills
+                                </a>
+
+
+                                {% if job.is_active %}
+
+                                    <form
+                                        method="POST"
+                                        action="{{ url_for('admin_toggle_job', job_id=job.job_id) }}"
+                                        style="display:inline;"
+                                    >
+
+                                        <button
+                                            type="submit"
+                                            class="action-btn deactivate"
+                                        >
+                                            Deactivate
+                                        </button>
+
+                                    </form>
+
+                                {% else %}
+
+                                    <form
+                                        method="POST"
+                                        action="{{ url_for('admin_toggle_job', job_id=job.job_id) }}"
+                                        style="display:inline;"
+                                    >
+
+                                        <button
+                                            type="submit"
+                                            class="action-btn activate"
+                                        >
+                                            Activate
+                                        </button>
+
+                                    </form>
+
+                                {% endif %}
+
+
+                                <form
+                                    method="POST"
+                                    action="{{ url_for('admin_delete_job', job_id=job.job_id) }}"
+                                    style="display:inline;"
+                                    onsubmit="return confirmDelete();"
+                                >
+
+                                    <button
+                                        type="submit"
+                                        class="action-btn delete"
+                                    >
+                                        Delete
+                                    </button>
+
+                                </form>
+
+                            </div>
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        {% else %}
+
+        <div class="empty">
+
+            <h3>No Jobs or Internships Found</h3>
+
+            <p>
+                Start by adding your first job or internship opportunity.
+            </p>
+
+        </div>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+
+<script>
+
+function openAddForm() {
+
+    window.location.href = "{{ url_for('admin_add_job') }}";
+
+}
+
+
+function confirmDelete() {
+
+    return confirm(
+        "Are you sure you want to delete this opportunity? This action cannot be undone."
+    );
+
+}
+
+</script>
+
+</body>
+</html>
