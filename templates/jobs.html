@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -150,6 +151,11 @@
 
 <div class="jobs-page">
 
+
+    <!-- =====================================================
+         HEADER
+         ===================================================== -->
+
     <div class="jobs-header">
 
         <h1>
@@ -163,7 +169,9 @@
     </div>
 
 
-    <!-- SEARCH AND FILTER -->
+    <!-- =====================================================
+         SEARCH AND FILTER
+         ===================================================== -->
 
     <div class="search-box">
 
@@ -190,7 +198,7 @@
                 <option
                     value="Job"
                     {% if job_type == 'Job' %}
-                    selected
+                        selected
                     {% endif %}
                 >
                     Job
@@ -199,7 +207,7 @@
                 <option
                     value="Internship"
                     {% if job_type == 'Internship' %}
-                    selected
+                        selected
                     {% endif %}
                 >
                     Internship
@@ -225,109 +233,136 @@
     </div>
 
 
-    <!-- JOB LIST -->
+    <!-- =====================================================
+         JOB LIST
+         ===================================================== -->
 
     {% if jobs %}
 
-    <div class="job-grid">
+        <div class="job-grid">
 
-        {% for job in jobs %}
+            {% for job in jobs %}
 
-        <div class="job-card">
-
-            <span class="job-type">
-                {{ job[4] }}
-            </span>
+                <div class="job-card">
 
 
-            <h2>
-                {{ job[1] }}
-            </h2>
+                    <!-- JOB TYPE -->
+
+                    <span class="job-type">
+
+                        {{ job.job_type }}
+
+                    </span>
 
 
-            <div class="company">
-                {{ job[2] }}
-            </div>
+                    <!-- JOB TITLE -->
+
+                    <h2>
+
+                        {{ job.title }}
+
+                    </h2>
 
 
-            <div class="job-info">
+                    <!-- COMPANY -->
 
-                📍
-                {{ job[5] or 'Not specified' }}
+                    <div class="company">
 
-                <br>
+                        {{ job.company_name }}
 
-                💼
-                {{ job[6] or 'Not specified' }}
-
-                <br>
-
-                🎓
-                {{ job[7] or 'Not specified' }}
-
-                <br>
-
-                💰
-
-                {% if job[8] and job[9] %}
-
-                    ₹{{ "{:,.0f}".format(job[8]) }}
-                    -
-                    ₹{{ "{:,.0f}".format(job[9]) }}
-
-                {% elif job[8] %}
-
-                    ₹{{ "{:,.0f}".format(job[8]) }}
-
-                {% else %}
-
-                    Not specified
-
-                {% endif %}
-
-                <br>
-
-                📅
-                Deadline:
-                {{ job[10] or 'Not specified' }}
-
-            </div>
+                    </div>
 
 
-            <a
-                href="{{ url_for(
-                    'job_details',
-                    job_id=job[0]
-                ) }}"
-                class="view-btn"
-            >
-                View Details
-            </a>
+                    <!-- JOB INFORMATION -->
+
+                    <div class="job-info">
+
+                        📍
+                        {{ job.location or 'Not specified' }}
+
+                        <br>
+
+                        💼
+                        {{ job.experience_required or 'Not specified' }}
+
+                        <br>
+
+                        🎓
+                        {{ job.education_required or 'Not specified' }}
+
+                        <br>
+
+                        💰
+
+                        {% if job.salary_min and job.salary_max %}
+
+                            ₹{{ "{:,.0f}".format(job.salary_min) }}
+
+                            -
+
+                            ₹{{ "{:,.0f}".format(job.salary_max) }}
+
+                        {% elif job.salary_min %}
+
+                            ₹{{ "{:,.0f}".format(job.salary_min) }}
+
+                        {% else %}
+
+                            Not specified
+
+                        {% endif %}
+
+                        <br>
+
+                        📅
+
+                        Deadline:
+
+                        {{ job.application_deadline or 'Not specified' }}
+
+                    </div>
+
+
+                    <!-- VIEW DETAILS -->
+
+                    <a
+                        href="{{ url_for(
+                            'job_details',
+                            job_id=job.job_id
+                        ) }}"
+                        class="view-btn"
+                    >
+
+                        View Details
+
+                    </a>
+
+                </div>
+
+            {% endfor %}
 
         </div>
 
-        {% endfor %}
-
-    </div>
-
     {% else %}
 
-    <div class="no-jobs">
+        <div class="no-jobs">
 
-        <h2>
-            No opportunities found
-        </h2>
+            <h2>
+                No opportunities found
+            </h2>
 
-        <p>
-            Try changing your search or filters.
-        </p>
+            <p>
+                Try changing your search or filters.
+            </p>
 
-    </div>
+        </div>
 
     {% endif %}
+
 
 </div>
 
 </body>
 
 </html>
+

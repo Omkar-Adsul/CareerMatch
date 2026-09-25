@@ -1,85 +1,178 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
-
-    <title>
-        {{ job[1] }} | CareerMatch
-    </title>
-
-    <link rel="stylesheet"
-          href="{{ url_for('static', filename='css/style.css') }}">
+    <title>{{ job.title }} - CareerMatch</title>
 
     <style>
-
-        .details-page {
-            max-width: 1000px;
-            margin: 40px auto;
-            padding: 0 20px;
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
-        .details-card {
-            background: white;
-            padding: 35px;
-            border-radius: 16px;
-            box-shadow: 0 5px 25px rgba(0,0,0,0.08);
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f4f7fb;
+            color: #222;
+            line-height: 1.6;
         }
 
-        .job-badge {
-            display: inline-block;
-            padding: 6px 12px;
-            border-radius: 20px;
-            background: #e8f0ff;
+        /* NAVBAR */
+        .navbar {
+            background: #ffffff;
+            border-bottom: 1px solid #e5e7eb;
+            padding: 15px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 25px;
+            font-weight: 700;
             color: #2563eb;
-            font-size: 13px;
-            font-weight: bold;
+            text-decoration: none;
         }
 
-        .details-card h1 {
-            font-size: 34px;
-            margin: 15px 0 5px;
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 25px;
         }
 
-        .company-name {
-            font-size: 18px;
-            color: #555;
+        .nav-links a {
+            text-decoration: none;
+            color: #374151;
+            font-size: 15px;
+            font-weight: 500;
+        }
+
+        .nav-links a:hover {
+            color: #2563eb;
+        }
+
+        .logout-btn {
+            color: #dc2626 !important;
+        }
+
+        /* MAIN */
+        .container {
+            width: 90%;
+            max-width: 1100px;
+            margin: 40px auto;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #2563eb;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        /* JOB HEADER */
+        .job-header {
+            background: #ffffff;
+            border-radius: 14px;
+            padding: 30px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
             margin-bottom: 25px;
         }
 
-        .info-grid {
+        .job-type {
+            display: inline-block;
+            background: #e0edff;
+            color: #2563eb;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .job-header h1 {
+            font-size: 32px;
+            color: #111827;
+            margin-bottom: 8px;
+        }
+
+        .company {
+            font-size: 18px;
+            color: #4b5563;
+            margin-bottom: 15px;
+        }
+
+        .location {
+            color: #6b7280;
+            font-size: 15px;
+        }
+
+        /* CONTENT */
+        .content-grid {
             display: grid;
-            grid-template-columns:
-                repeat(2, 1fr);
-            gap: 15px;
-            margin: 25px 0;
+            grid-template-columns: 2fr 1fr;
+            gap: 25px;
         }
 
-        .info-item {
-            padding: 15px;
-            background: #f7f8fa;
-            border-radius: 10px;
+        .card {
+            background: #ffffff;
+            border-radius: 14px;
+            padding: 28px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+            margin-bottom: 25px;
         }
 
-        .info-item strong {
-            display: block;
-            margin-bottom: 5px;
-        }
-
-        .section {
-            margin-top: 30px;
+        .card h2 {
+            font-size: 21px;
+            color: #111827;
+            margin-bottom: 18px;
         }
 
         .description {
-            line-height: 1.7;
-            color: #555;
+            color: #4b5563;
             white-space: pre-line;
         }
 
+        /* DETAILS */
+        .details-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .detail-item {
+            border-bottom: 1px solid #eef0f3;
+            padding-bottom: 12px;
+        }
+
+        .detail-item:last-child {
+            border-bottom: none;
+        }
+
+        .detail-label {
+            display: block;
+            font-size: 13px;
+            color: #6b7280;
+            margin-bottom: 3px;
+        }
+
+        .detail-value {
+            font-size: 15px;
+            color: #111827;
+            font-weight: 500;
+        }
+
+        /* SKILLS */
         .skills {
             display: flex;
             flex-wrap: wrap;
@@ -87,306 +180,528 @@
         }
 
         .skill {
-            background: #eef2ff;
-            padding: 8px 13px;
+            background: #eef4ff;
+            color: #2563eb;
+            padding: 7px 13px;
             border-radius: 20px;
             font-size: 13px;
+            font-weight: 500;
         }
 
-        .apply-box {
-            margin-top: 35px;
+        /* ACTION SECTION */
+        .job-action-section {
+            background: #ffffff;
+            border-radius: 14px;
             padding: 25px;
-            background: #f7f8fa;
-            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+            position: sticky;
+            top: 90px;
         }
 
-        .apply-btn {
+        .job-action-section h2 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            color: #111827;
+        }
+
+        .btn-primary,
+        .btn-secondary {
+            display: block;
+            width: 100%;
+            text-align: center;
             border: none;
-            padding: 13px 25px;
+            padding: 13px 18px;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            margin-bottom: 12px;
+            transition: 0.2s;
+        }
+
+        .btn-primary {
             background: #2563eb;
             color: white;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 15px;
         }
 
+        .btn-primary:hover {
+            background: #1d4ed8;
+        }
+
+        .btn-secondary {
+            background: #f3f4f6;
+            color: #374151;
+        }
+
+        .btn-secondary:hover {
+            background: #e5e7eb;
+        }
+
+        /* APPLICATION STATUS */
         .already-applied {
-            background: #e8f8ee;
-            color: #16803c;
-            padding: 15px;
+            background: #dcfce7;
+            color: #166534;
+            padding: 14px;
             border-radius: 8px;
-            font-weight: bold;
+            margin-bottom: 15px;
+            font-size: 14px;
+            text-align: center;
+            font-weight: 500;
         }
 
-        .external-link {
-            display: inline-block;
+        .closed-message {
+            background: #dcfce7;
+            color: #166534;
+            padding: 14px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .deadline-warning {
             margin-top: 15px;
-            padding: 12px 20px;
-            background: #16a34a;
-            color: white;
-            text-decoration: none;
+            padding: 12px;
+            background: #fff7ed;
+            color: #c2410c;
             border-radius: 8px;
-            font-weight: bold;
+            font-size: 13px;
+            text-align: center;
         }
 
-        @media (max-width: 700px) {
+        /* FLASH MESSAGES */
+        .flash-container {
+            margin-bottom: 20px;
+        }
 
-            .info-grid {
+        .flash {
+            padding: 13px 16px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+
+        .flash-success {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .flash-error {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .flash-info {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        /* FOOTER */
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: #6b7280;
+            font-size: 14px;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 800px) {
+
+            .navbar {
+                padding: 15px 20px;
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 15px;
+            }
+
+            .content-grid {
                 grid-template-columns: 1fr;
             }
 
+            .job-action-section {
+                position: static;
+            }
+
+            .job-header h1 {
+                font-size: 26px;
+            }
+
+            .container {
+                width: 94%;
+                margin-top: 25px;
+            }
         }
-
     </style>
-
 </head>
-
 
 <body>
 
-<div class="details-page">
+    <!-- NAVBAR -->
+    <nav class="navbar">
 
-    <div class="details-card">
+        <a href="{{ url_for('dashboard') }}" class="logo">
+            CareerMatch
+        </a>
 
-        <span class="job-badge">
-            {{ job[4] }}
-        </span>
+        <div class="nav-links">
 
+            <a href="{{ url_for('dashboard') }}">
+                Dashboard
+            </a>
 
-        <h1>
-            {{ job[1] }}
-        </h1>
+            <a href="{{ url_for('profile') }}">
+                Profile
+            </a>
 
+            <a href="{{ url_for('jobs') }}">
+                Jobs & Internships
+            </a>
 
-        <div class="company-name">
-            {{ job[2] }}
-        </div>
+            <a href="{{ url_for('my_applications') }}">
+                My Applications
+            </a>
 
+            <a href="{{ url_for('recommendations') }}">
+                Recommendations
+            </a>
 
-        <div class="info-grid">
-
-            <div class="info-item">
-
-                <strong>
-                    📍 Location
-                </strong>
-
-                {{ job[5] or 'Not specified' }}
-
-            </div>
-
-
-            <div class="info-item">
-
-                <strong>
-                    💼 Experience
-                </strong>
-
-                {{ job[6] or 'Not specified' }}
-
-            </div>
-
-
-            <div class="info-item">
-
-                <strong>
-                    🎓 Education
-                </strong>
-
-                {{ job[7] or 'Not specified' }}
-
-            </div>
-
-
-            <div class="info-item">
-
-                <strong>
-                    💰 Salary / Stipend
-                </strong>
-
-                {% if job[8] and job[9] %}
-
-                    ₹{{ "{:,.0f}".format(job[8]) }}
-                    -
-                    ₹{{ "{:,.0f}".format(job[9]) }}
-
-                {% elif job[8] %}
-
-                    ₹{{ "{:,.0f}".format(job[8]) }}
-
-                {% else %}
-
-                    Not specified
-
-                {% endif %}
-
-            </div>
-
-
-            <div class="info-item">
-
-                <strong>
-                    📅 Application Deadline
-                </strong>
-
-                {{ job[10] or 'Not specified' }}
-
-            </div>
-
-
-            <div class="info-item">
-
-                <strong>
-                    🏢 Company
-                </strong>
-
-                {{ job[2] }}
-
-            </div>
-
-        </div>
-
-
-        <!-- DESCRIPTION -->
-
-        <div class="section">
-
-            <h2>
-                Job Description
-            </h2>
-
-            <div class="description">
-                {{ job[3] or 'No description available.' }}
-            </div>
-
-        </div>
-
-
-        <!-- SKILLS -->
-
-        <div class="section">
-
-            <h2>
-                Required Skills
-            </h2>
-
-
-            {% if required_skills %}
-
-            <div class="skills">
-
-                {% for skill in required_skills %}
-
-                <span class="skill">
-
-                    {{ skill[0] }}
-
-                    {% if skill[1] %}
-                        • Importance {{ skill[1] }}
-                    {% endif %}
-
-                </span>
-
-                {% endfor %}
-
-            </div>
-
-            {% else %}
-
-            <p>
-                No specific skills listed.
-            </p>
-
-            {% endif %}
-
-        </div>
-
-
-        <!-- EXTERNAL APPLICATION LINK -->
-
-        {% if job[11] %}
-
-        <div class="section">
-
-            <a
-                href="{{ job[11] }}"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="external-link"
-            >
-                Visit Application Website
+            <a href="{{ url_for('logout') }}" class="logout-btn">
+                Logout
             </a>
 
         </div>
 
-        {% endif %}
+    </nav>
 
 
-        <!-- APPLY -->
+    <!-- MAIN CONTAINER -->
+    <main class="container">
 
-        <div class="apply-box">
+        <!-- BACK -->
+        <a href="{{ url_for('jobs') }}" class="back-link">
+            ← Back to Jobs & Internships
+        </a>
 
-            {% if application %}
 
-                <div class="already-applied">
+        <!-- FLASH MESSAGES -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
 
-                    ✓ You have already applied
-                    for this opportunity.
+            {% if messages %}
 
-                    <br><br>
+                <div class="flash-container">
 
-                    Application Status:
-                    {{ application[1] }}
+                    {% for category, message in messages %}
+
+                        <div class="flash
+                            {% if category == 'success' %}
+                                flash-success
+                            {% elif category == 'error' %}
+                                flash-error
+                            {% else %}
+                                flash-info
+                            {% endif %}
+                        ">
+                            {{ message }}
+                        </div>
+
+                    {% endfor %}
 
                 </div>
-
-
-            {% elif not job[12] %}
-
-                <div class="already-applied">
-
-                    This opportunity is currently closed.
-
-                </div>
-
-
-            {% else %}
-
-                <h2>
-                    Apply Now
-                </h2>
-
-                <p>
-                    Submit your application through CareerMatch.
-                </p>
-
-
-                <form
-                    method="POST"
-                    action="{{ url_for(
-                        'apply_job',
-                        job_id=job[0]
-                    ) }}"
-                >
-
-                    <button
-                        type="submit"
-                        class="apply-btn"
-                    >
-                        Apply Now
-                    </button>
-
-                </form>
 
             {% endif %}
 
+        {% endwith %}
+
+
+        <!-- JOB HEADER -->
+        <section class="job-header">
+
+            <span class="job-type">
+                {{ job.job_type }}
+            </span>
+
+            <h1>
+                {{ job.title }}
+            </h1>
+
+            <div class="company">
+                {{ job.company_name }}
+            </div>
+
+            <div class="location">
+                📍 {{ job.location or 'Location not specified' }}
+            </div>
+
+        </section>
+
+
+        <!-- CONTENT GRID -->
+        <div class="content-grid">
+
+
+            <!-- LEFT COLUMN -->
+            <div>
+
+
+                <!-- DESCRIPTION -->
+                <section class="card">
+
+                    <h2>
+                        Job Description
+                    </h2>
+
+                    <div class="description">
+
+                        {{ job.description or 'No description provided.' }}
+
+                    </div>
+
+                </section>
+
+
+                <!-- REQUIRED SKILLS -->
+                <section class="card">
+
+                    <h2>
+                        Required Skills
+                    </h2>
+
+                    {% if required_skills %}
+
+                        <div class="skills">
+
+                            {% for skill in required_skills %}
+
+                                <span class="skill">
+                                    {{ skill.skill_name }}
+
+                                    {% if skill.importance %}
+                                        · Importance {{ skill.importance }}
+                                    {% endif %}
+                                </span>
+
+                            {% endfor %}
+
+                        </div>
+
+                    {% else %}
+
+                        <p class="description">
+                            No specific skills listed.
+                        </p>
+
+                    {% endif %}
+
+                </section>
+
+
+                <!-- ADDITIONAL INFORMATION -->
+                <section class="card">
+
+                    <h2>
+                        Additional Information
+                    </h2>
+
+                    <div class="details-list">
+
+                        <div class="detail-item">
+
+                            <span class="detail-label">
+                                Experience Required
+                            </span>
+
+                            <span class="detail-value">
+                                {{ job.experience_required or 'Not specified' }}
+                            </span>
+
+                        </div>
+
+
+                        <div class="detail-item">
+
+                            <span class="detail-label">
+                                Education Required
+                            </span>
+
+                            <span class="detail-value">
+                                {{ job.education_required or 'Not specified' }}
+                            </span>
+
+                        </div>
+
+
+                        <div class="detail-item">
+
+                            <span class="detail-label">
+                                Salary
+                            </span>
+
+                            <span class="detail-value">
+
+                                {% if job.salary_min and job.salary_max %}
+
+                                    ₹{{ "{:,.0f}".format(job.salary_min|float) }}
+                                    -
+                                    ₹{{ "{:,.0f}".format(job.salary_max|float) }}
+
+                                {% elif job.salary_min %}
+
+                                    ₹{{ "{:,.0f}".format(job.salary_min|float) }}
+
+                                {% elif job.salary_max %}
+
+                                    ₹{{ "{:,.0f}".format(job.salary_max|float) }}
+
+                                {% else %}
+
+                                    Not specified
+
+                                {% endif %}
+
+                            </span>
+
+                        </div>
+
+
+                        <div class="detail-item">
+
+                            <span class="detail-label">
+                                Application Deadline
+                            </span>
+
+                            <span class="detail-value">
+
+                                {% if job.application_deadline %}
+
+                                    {{ job.application_deadline }}
+
+                                {% else %}
+
+                                    No deadline specified
+
+                                {% endif %}
+
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+            </div>
+
+
+            <!-- RIGHT COLUMN -->
+            <div>
+
+
+                <!-- ACTION CARD -->
+                <section class="job-action-section">
+
+                    <h2>
+                        Application
+                    </h2>
+
+
+                    {% if existing_application %}
+
+                        <!-- ALREADY APPLIED -->
+
+                        <div class="already-applied">
+
+                            ✓ You have already applied for this opportunity.
+
+                        </div>
+
+
+                        <a href="{{ url_for('my_applications') }}"
+                           class="btn-primary">
+
+                            View My Applications
+
+                        </a>
+
+
+                    {% elif job.is_active %}
+
+                        <!-- ACTIVE JOB -->
+
+                        <form method="POST"
+                              action="{{ url_for('apply', job_id=job.job_id) }}">
+
+                            <button type="submit"
+                                    class="btn-primary">
+
+                                Apply Now
+
+                            </button>
+
+                        </form>
+
+
+                        {% if job.application_link %}
+
+                            <a href="{{ job.application_link }}"
+                               target="_blank"
+                               rel="noopener noreferrer"
+                               class="btn-secondary">
+
+                                Apply on Company Website
+
+                            </a>
+
+                        {% endif %}
+
+
+                    {% else %}
+
+                        <!-- CLOSED JOB -->
+
+                        <div class="closed-message">
+
+                            This opportunity is currently closed.
+
+                        </div>
+
+                    {% endif %}
+
+
+                    {% if job.application_deadline %}
+
+                        <div class="deadline-warning">
+
+                            Application Deadline:
+                            <strong>
+                                {{ job.application_deadline }}
+                            </strong>
+
+                        </div>
+
+                    {% endif %}
+
+                </section>
+
+            </div>
+
         </div>
 
-    </div>
+    </main>
 
-</div>
+
+    <!-- FOOTER -->
+    <footer>
+
+        © 2026 CareerMatch –
+        AI-Powered Job & Internship Recommendation Platform
+
+    </footer>
 
 </body>
-
 </html>
