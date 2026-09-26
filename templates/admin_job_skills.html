@@ -5,160 +5,180 @@
 
     <meta charset="UTF-8">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
-    <title>Manage Skills | CareerMatch</title>
+    <title>Manage Job Skills | CareerMatch</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
 
     <style>
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
         body {
-            font-family: Arial, sans-serif;
-            background: #f5f7fb;
-            color: #1f2937;
+            margin: 0;
+            background: #f4f7fb;
+            font-family: Arial, Helvetica, sans-serif;
+            color: #172033;
         }
 
         .navbar {
-            height: 70px;
-            background: #ffffff;
+            background: white;
             border-bottom: 1px solid #e5e7eb;
+            padding: 18px 40px;
 
             display: flex;
             align-items: center;
             justify-content: space-between;
-
-            padding: 0 35px;
         }
 
-        .logo {
+        .brand {
+            font-size: 27px;
+            font-weight: 700;
             color: #2563eb;
             text-decoration: none;
-            font-size: 24px;
-            font-weight: 700;
         }
 
-        .back {
-            color: #475569;
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            color: #172033;
             text-decoration: none;
-            font-size: 14px;
             font-weight: 600;
         }
 
-        .back:hover {
-            color: #2563eb;
+        .logout {
+            background: #ef4444;
+            color: white !important;
+            padding: 10px 18px;
+            border-radius: 8px;
         }
 
         .container {
-            width: 92%;
-            max-width: 1000px;
-            margin: 35px auto;
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
         }
 
-        .header {
+        .back {
+            display: inline-block;
+            color: #2563eb;
+            text-decoration: none;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .job-card {
             background: white;
             border: 1px solid #e5e7eb;
-            border-radius: 14px;
-            padding: 25px;
-            margin-bottom: 22px;
+            border-radius: 15px;
+            padding: 28px;
+            margin-bottom: 25px;
         }
 
-        .header h1 {
-            font-size: 26px;
-            margin-bottom: 8px;
+        .job-card h1 {
+            margin: 0 0 8px;
+            font-size: 30px;
         }
 
-        .header p {
-            color: #6b7280;
-            font-size: 14px;
+        .subtitle {
+            color: #64748b;
+            margin-bottom: 20px;
         }
 
         .job-info {
             display: flex;
             flex-wrap: wrap;
             gap: 10px;
-            margin-top: 15px;
         }
 
         .badge {
-            display: inline-block;
-            padding: 6px 11px;
+            background: #eef2ff;
+            color: #4338ca;
+            padding: 7px 13px;
             border-radius: 20px;
-            font-size: 12px;
+            font-size: 14px;
             font-weight: 700;
         }
 
-        .job {
-            background: #dbeafe;
-            color: #1d4ed8;
-        }
-
-        .internship {
-            background: #fef3c7;
-            color: #92400e;
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1.4fr;
+            gap: 25px;
         }
 
         .card {
             background: white;
             border: 1px solid #e5e7eb;
-            border-radius: 14px;
+            border-radius: 15px;
             padding: 25px;
-            margin-bottom: 22px;
         }
 
         .card h2 {
-            font-size: 19px;
-            margin-bottom: 18px;
-        }
-
-        .form-grid {
-            display: grid;
-            grid-template-columns: 1fr 180px auto;
-            gap: 15px;
-            align-items: end;
+            margin: 0 0 20px;
+            font-size: 21px;
         }
 
         .form-group {
-            display: flex;
-            flex-direction: column;
+            margin-bottom: 20px;
         }
 
         label {
-            font-size: 13px;
+            display: block;
             font-weight: 700;
-            margin-bottom: 7px;
-            color: #374151;
+            margin-bottom: 8px;
         }
 
         select {
             width: 100%;
-            padding: 11px 12px;
-            border: 1px solid #d1d5db;
+            box-sizing: border-box;
+            padding: 12px;
+            border: 1px solid #cbd5e1;
             border-radius: 8px;
             background: white;
-            font-size: 14px;
-            outline: none;
+            font-size: 15px;
         }
 
-        select:focus {
+        .importance {
+            display: flex;
+            gap: 8px;
+        }
+
+        .importance input {
+            display: none;
+        }
+
+        .importance label {
+            border: 1px solid #cbd5e1;
+            padding: 9px 14px;
+            border-radius: 7px;
+            cursor: pointer;
+        }
+
+        .importance input:checked + label {
+            background: #2563eb;
             border-color: #2563eb;
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, .10);
+            color: white;
+        }
+
+        .help {
+            color: #64748b;
+            font-size: 13px;
+            margin-top: 8px;
         }
 
         .add-btn {
+            width: 100%;
             border: none;
             background: #2563eb;
             color: white;
-            padding: 11px 20px;
+            padding: 13px;
             border-radius: 8px;
-            font-size: 14px;
+            font-size: 16px;
             font-weight: 700;
             cursor: pointer;
         }
@@ -173,184 +193,152 @@
             gap: 12px;
         }
 
-        .skill-item {
-            border: 1px solid #e5e7eb;
+        .skill {
+            border: 1px solid #e2e8f0;
             border-radius: 10px;
             padding: 15px;
 
             display: flex;
-            align-items: center;
             justify-content: space-between;
+            align-items: center;
             gap: 15px;
         }
 
         .skill-name {
-            font-weight: 700;
-            color: #111827;
-        }
-
-        .skill-meta {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .importance {
-            background: #ede9fe;
-            color: #6d28d9;
-            padding: 5px 9px;
-            border-radius: 15px;
-            font-size: 11px;
+            font-size: 16px;
             font-weight: 700;
         }
 
-        .remove-btn {
+        .skill-level {
+            color: #64748b;
+            font-size: 13px;
+            margin-top: 5px;
+        }
+
+        .remove {
             border: none;
             background: #fee2e2;
-            color: #b91c1c;
-            padding: 7px 11px;
-            border-radius: 6px;
-            font-size: 12px;
+            color: #dc2626;
+            padding: 8px 13px;
+            border-radius: 7px;
             font-weight: 700;
             cursor: pointer;
         }
 
-        .remove-btn:hover {
+        .remove:hover {
             background: #fecaca;
         }
 
         .empty {
             text-align: center;
-            padding: 35px 15px;
-            color: #6b7280;
+            padding: 40px 15px;
+            color: #64748b;
         }
 
         .flash {
             padding: 14px 18px;
-            border-radius: 8px;
+            border-radius: 9px;
             margin-bottom: 20px;
-            font-size: 14px;
+            font-weight: 600;
         }
 
-        .flash.success {
+        .flash-success {
             background: #dcfce7;
             color: #166534;
             border: 1px solid #bbf7d0;
         }
 
-        .flash.error {
+        .flash-error {
             background: #fee2e2;
             color: #991b1b;
             border: 1px solid #fecaca;
         }
 
-        .note {
-            margin-top: 15px;
-            padding: 12px 15px;
-            background: #eff6ff;
-            color: #1e40af;
-            border-radius: 8px;
-            font-size: 13px;
-        }
-
-        @media (max-width: 700px) {
+        @media (max-width: 800px) {
 
             .navbar {
-                padding: 0 18px;
+                padding: 15px 20px;
             }
 
-            .container {
-                width: 95%;
-                margin: 22px auto;
-            }
-
-            .form-grid {
+            .grid {
                 grid-template-columns: 1fr;
             }
 
-            .skill-item {
+            .nav-links {
+                gap: 10px;
+            }
+
+            .nav-links a:not(.logout) {
+                display: none;
+            }
+
+            .skill {
                 align-items: flex-start;
-                flex-direction: column;
             }
-
-            .skill-meta {
-                width: 100%;
-                justify-content: space-between;
-            }
-
         }
 
     </style>
 
 </head>
 
-
 <body>
 
 
+<!-- ======================================================
+     NAVBAR
+====================================================== -->
+
 <nav class="navbar">
 
-    <a
-        href="{{ url_for('admin_dashboard') }}"
-        class="logo"
-    >
+    <a href="{{ url_for('admin_dashboard') }}"
+       class="brand">
+
         CareerMatch
+
     </a>
 
-    <a
-        href="{{ url_for('admin_jobs') }}"
-        class="back"
-    >
-        ← Back to Manage Jobs
-    </a>
+    <div class="nav-links">
+
+        <a href="{{ url_for('admin_dashboard') }}">
+            Dashboard
+        </a>
+
+        <a href="{{ url_for('admin_jobs') }}">
+            Manage Jobs
+        </a>
+
+        <a href="{{ url_for('jobs') }}">
+            View Jobs
+        </a>
+
+        <a href="{{ url_for('logout') }}"
+           class="logout">
+
+            Logout
+
+        </a>
+
+    </div>
 
 </nav>
 
 
+<!-- ======================================================
+     MAIN
+====================================================== -->
+
 <div class="container">
 
 
-    <div class="header">
+    <a href="{{ url_for('admin_jobs') }}"
+       class="back">
 
-        <h1>
-            Required Skills
-        </h1>
+        ← Back to Manage Jobs
 
-        <p>
-            Manage the skills required for this opportunity.
-        </p>
+    </a>
 
 
-        <div class="job-info">
-
-            {% if job.job_type == 'Internship' %}
-
-                <span class="badge internship">
-                    Internship
-                </span>
-
-            {% else %}
-
-                <span class="badge job">
-                    Job
-                </span>
-
-            {% endif %}
-
-
-            <span class="badge">
-                {{ job.title }}
-            </span>
-
-
-            <span class="badge">
-                {{ job.company_name }}
-            </span>
-
-        </div>
-
-    </div>
-
+    <!-- FLASH MESSAGES -->
 
     {% with messages = get_flashed_messages(with_categories=true) %}
 
@@ -358,8 +346,15 @@
 
             {% for category, message in messages %}
 
-                <div class="flash {{ category }}">
+                <div class="flash
+                    {% if category == 'success' %}
+                        flash-success
+                    {% else %}
+                        flash-error
+                    {% endif %}">
+
                     {{ message }}
+
                 </div>
 
             {% endfor %}
@@ -369,47 +364,86 @@
     {% endwith %}
 
 
-    <!-- ADD SKILL -->
+    <!-- JOB INFORMATION -->
 
-    <div class="card">
+    <div class="job-card">
 
-        <h2>
-            Add Required Skill
-        </h2>
+        <h1>
+            Manage Job Skills
+        </h1>
+
+        <div class="subtitle">
+            Manage the skills required for this opportunity.
+        </div>
+
+        <div class="job-info">
+
+            <span class="badge">
+                {{ job.title }}
+            </span>
+
+            <span class="badge">
+                {{ job.company_name }}
+            </span>
+
+            <span class="badge">
+                {{ job.job_type }}
+            </span>
+
+            <span class="badge">
+                {{ job.location or 'Not specified' }}
+            </span>
+
+        </div>
+
+    </div>
 
 
-        <form
-            method="POST"
-            action="{{ url_for('admin_manage_job_skills', job_id=job.job_id) }}"
-        >
+    <!-- ==================================================
+         TWO COLUMNS
+    ================================================== -->
 
-            <div class="form-grid">
+    <div class="grid">
+
+
+        <!-- ADD SKILL -->
+
+        <div class="card">
+
+            <h2>
+                Add Required Skill
+            </h2>
+
+            <form method="POST"
+                  action="{{ url_for(
+                      'admin_job_skills',
+                      job_id=job.job_id
+                  ) }}">
 
 
                 <div class="form-group">
 
                     <label for="skill_id">
-                        Skill
+                        Select Skill
                     </label>
 
-                    <select
-                        name="skill_id"
-                        id="skill_id"
-                        required
-                    >
+                    <select id="skill_id"
+                            name="skill_id"
+                            required>
 
                         <option value="">
-                            Select a skill
+                            -- Select Skill --
                         </option>
-
 
                         {% for skill in all_skills %}
 
-                            <option
-                                value="{{ skill.skill_id }}"
-                            >
-                                {{ skill.skill_name }}
-                            </option>
+                            {% if skill.skill_id not in selected_skill_ids %}
+
+                                <option value="{{ skill.skill_id }}">
+                                    {{ skill.skill_name }}
+                                </option>
+
+                            {% endif %}
 
                         {% endfor %}
 
@@ -420,153 +454,173 @@
 
                 <div class="form-group">
 
-                    <label for="importance">
+                    <label>
                         Importance
                     </label>
 
-                    <select
-                        name="importance"
-                        id="importance"
-                    >
+                    <div class="importance">
 
-                        <option value="1">
-                            1 - Low
-                        </option>
 
-                        <option value="2">
-                            2 - Moderate
-                        </option>
+                        <input
+                            type="radio"
+                            name="importance"
+                            value="1"
+                            id="imp1">
 
-                        <option
+                        <label for="imp1">
+                            1
+                        </label>
+
+
+                        <input
+                            type="radio"
+                            name="importance"
+                            value="2"
+                            id="imp2">
+
+                        <label for="imp2">
+                            2
+                        </label>
+
+
+                        <input
+                            type="radio"
+                            name="importance"
                             value="3"
-                            selected
-                        >
-                            3 - Medium
-                        </option>
+                            id="imp3"
+                            checked>
 
-                        <option value="4">
-                            4 - High
-                        </option>
+                        <label for="imp3">
+                            3
+                        </label>
 
-                        <option value="5">
-                            5 - Critical
-                        </option>
 
-                    </select>
+                        <input
+                            type="radio"
+                            name="importance"
+                            value="4"
+                            id="imp4">
+
+                        <label for="imp4">
+                            4
+                        </label>
+
+
+                        <input
+                            type="radio"
+                            name="importance"
+                            value="5"
+                            id="imp5">
+
+                        <label for="imp5">
+                            5
+                        </label>
+
+                    </div>
+
+                    <div class="help">
+                        5 = Most important &nbsp; | &nbsp;
+                        1 = Least important
+                    </div>
 
                 </div>
 
 
-                <button
-                    type="submit"
-                    class="add-btn"
-                >
+                <button type="submit"
+                        class="add-btn">
+
                     + Add Skill
+
                 </button>
 
-            </div>
-
-        </form>
-
-
-        <div class="note">
-
-            Skill importance is used by the CareerMatch
-            recommendation system when calculating match scores.
+            </form>
 
         </div>
 
-    </div>
+
+        <!-- CURRENT SKILLS -->
+
+        <div class="card">
+
+            <h2>
+                Required Skills
+                ({{ job_skills|length }})
+            </h2>
 
 
-    <!-- CURRENT SKILLS -->
+            {% if job_skills %}
 
-    <div class="card">
+                <div class="skill-list">
 
-        <h2>
-            Current Required Skills
-        </h2>
+                    {% for skill in job_skills %}
 
+                        <div class="skill">
 
-        {% if job_skills %}
+                            <div>
 
-            <div class="skill-list">
+                                <div class="skill-name">
+                                    {{ skill.skill_name }}
+                                </div>
 
-                {% for skill in job_skills %}
+                                <div class="skill-level">
 
-                    <div class="skill-item">
+                                    Importance:
+                                    <strong>
+                                        {{ skill.importance }}/5
+                                    </strong>
 
-                        <div>
+                                </div>
 
-                            <div class="skill-name">
-                                {{ skill.skill_name }}
                             </div>
 
-                        </div>
 
+                            <form method="POST"
+                                  action="{{ url_for(
+                                      'admin_delete_job_skill',
+                                      job_id=job.job_id,
+                                      job_skill_id=skill.job_skill_id
+                                  ) }}"
+                                  onsubmit="return confirm(
+                                      'Remove this skill from the opportunity?'
+                                  );">
 
-                        <div class="skill-meta">
+                                <button type="submit"
+                                        class="remove">
 
-                            <span class="importance">
-
-                                Importance:
-                                {{ skill.importance }}/5
-
-                            </span>
-
-
-                            <form
-                                method="POST"
-                                action="{{
-                                    url_for(
-                                        'admin_delete_job_skill',
-                                        job_id=job.job_id,
-                                        job_skill_id=skill.job_skill_id
-                                    )
-                                }}"
-                                onsubmit="return confirm(
-                                    'Remove this required skill?'
-                                );"
-                            >
-
-                                <button
-                                    type="submit"
-                                    class="remove-btn"
-                                >
                                     Remove
+
                                 </button>
 
                             </form>
 
                         </div>
 
-                    </div>
+                    {% endfor %}
 
-                {% endfor %}
+                </div>
 
-            </div>
+            {% else %}
 
-        {% else %}
+                <div class="empty">
 
-            <div class="empty">
+                    <h3>
+                        No skills added yet
+                    </h3>
 
-                <h3>
-                    No Required Skills Added
-                </h3>
+                    <p>
+                        Select a skill from the left and click
+                        <strong>+ Add Skill</strong>.
+                    </p>
 
-                <p>
-                    Add skills above to improve job recommendations.
-                </p>
+                </div>
 
-            </div>
+            {% endif %}
 
-        {% endif %}
+        </div>
 
     </div>
 
-
 </div>
-
 
 </body>
 
