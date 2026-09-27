@@ -370,7 +370,6 @@ def admin_dashboard():
             cursor_factory=RealDictCursor
         )
 
-        # Total users
         cur.execute("""
             SELECT COUNT(*) AS total_users
             FROM users
@@ -379,7 +378,6 @@ def admin_dashboard():
 
         total_users = cur.fetchone()["total_users"]
 
-        # Total jobs
         cur.execute("""
             SELECT COUNT(*) AS total_jobs
             FROM jobs
@@ -387,7 +385,6 @@ def admin_dashboard():
 
         total_jobs = cur.fetchone()["total_jobs"]
 
-        # Active jobs
         cur.execute("""
             SELECT COUNT(*) AS active_jobs
             FROM jobs
@@ -396,7 +393,6 @@ def admin_dashboard():
 
         active_jobs = cur.fetchone()["active_jobs"]
 
-        # Applications
         cur.execute("""
             SELECT COUNT(*) AS total_applications
             FROM applications
@@ -404,7 +400,6 @@ def admin_dashboard():
 
         total_applications = cur.fetchone()["total_applications"]
 
-        # Recent jobs
         cur.execute("""
             SELECT
                 job_id,
@@ -422,7 +417,6 @@ def admin_dashboard():
 
         recent_jobs = cur.fetchall()
 
-        # Recent applications
         cur.execute("""
             SELECT
                 a.application_id,
@@ -726,7 +720,12 @@ def add_skill():
         proficiency = request.form.get("proficiency")
 
         if not skill_id:
-            flash("Please select a skill.", "error")
+
+            flash(
+                "Please select a skill.",
+                "error"
+            )
+
             return redirect(url_for("profile"))
 
         conn = get_db_connection()
@@ -812,7 +811,10 @@ def add_skill():
 # REMOVE USER SKILL
 # ============================================================
 
-@app.route("/profile/remove-skill/<int:skill_id>", methods=["POST"])
+@app.route(
+    "/profile/remove-skill/<int:skill_id>",
+    methods=["POST"]
+)
 @login_required
 def remove_skill(skill_id):
 
@@ -876,9 +878,20 @@ def jobs():
 
     try:
 
-        search = request.args.get("search", "").strip()
-        job_type = request.args.get("job_type", "").strip()
-        location = request.args.get("location", "").strip()
+        search = request.args.get(
+            "search",
+            ""
+        ).strip()
+
+        job_type = request.args.get(
+            "job_type",
+            ""
+        ).strip()
+
+        location = request.args.get(
+            "location",
+            ""
+        ).strip()
 
         conn = get_db_connection()
 
@@ -940,7 +953,9 @@ def jobs():
                 AND location ILIKE %s
             """
 
-            params.append("%" + location + "%")
+            params.append(
+                "%" + location + "%"
+            )
 
         query += """
             ORDER BY
@@ -948,7 +963,10 @@ def jobs():
                 created_at DESC
         """
 
-        cur.execute(query, params)
+        cur.execute(
+            query,
+            params
+        )
 
         job_list = cur.fetchall()
 
@@ -969,7 +987,9 @@ def jobs():
             "error"
         )
 
-        return redirect(url_for("dashboard"))
+        return redirect(
+            url_for("dashboard")
+        )
 
     finally:
 
@@ -1022,8 +1042,15 @@ def job_details(job_id):
         job = cur.fetchone()
 
         if not job:
-            flash("Job not found.", "error")
-            return redirect(url_for("jobs"))
+
+            flash(
+                "Job not found.",
+                "error"
+            )
+
+            return redirect(
+                url_for("jobs")
+            )
 
         cur.execute("""
             SELECT
@@ -1034,7 +1061,9 @@ def job_details(job_id):
             JOIN skills s
                 ON js.skill_id = s.skill_id
             WHERE js.job_id = %s
-            ORDER BY js.importance DESC, s.skill_name
+            ORDER BY
+                js.importance DESC,
+                s.skill_name
         """, (job_id,))
 
         required_skills = cur.fetchall()
@@ -1060,14 +1089,19 @@ def job_details(job_id):
 
     except Exception as e:
 
-        print("JOB DETAILS ERROR:", e)
+        print(
+            "JOB DETAILS ERROR:",
+            e
+        )
 
         flash(
             "Unable to load job details: " + str(e),
             "error"
         )
 
-        return redirect(url_for("jobs"))
+        return redirect(
+            url_for("jobs")
+        )
 
     finally:
 
@@ -1082,7 +1116,10 @@ def job_details(job_id):
 # APPLY FOR JOB
 # ============================================================
 
-@app.route("/apply/<int:job_id>", methods=["POST"])
+@app.route(
+    "/apply/<int:job_id>",
+    methods=["POST"]
+)
 @login_required
 def apply(job_id):
 
@@ -1105,11 +1142,15 @@ def apply(job_id):
         job = cur.fetchone()
 
         if not job:
+
             flash(
                 "This opportunity is not available.",
                 "error"
             )
-            return redirect(url_for("jobs"))
+
+            return redirect(
+                url_for("jobs")
+            )
 
         cur.execute("""
             SELECT application_id
@@ -1124,12 +1165,17 @@ def apply(job_id):
         existing = cur.fetchone()
 
         if existing:
+
             flash(
                 "You have already applied for this opportunity.",
                 "error"
             )
+
             return redirect(
-                url_for("job_details", job_id=job_id)
+                url_for(
+                    "job_details",
+                    job_id=job_id
+                )
             )
 
         cur.execute("""
@@ -1159,14 +1205,19 @@ def apply(job_id):
             "success"
         )
 
-        return redirect(url_for("my_applications"))
+        return redirect(
+            url_for("my_applications")
+        )
 
     except Exception as e:
 
         if conn:
             conn.rollback()
 
-        print("APPLY ERROR:", e)
+        print(
+            "APPLY ERROR:",
+            e
+        )
 
         flash(
             "Unable to apply: " + str(e),
@@ -1174,7 +1225,10 @@ def apply(job_id):
         )
 
         return redirect(
-            url_for("job_details", job_id=job_id)
+            url_for(
+                "job_details",
+                job_id=job_id
+            )
         )
 
     finally:
@@ -1232,14 +1286,19 @@ def my_applications():
 
     except Exception as e:
 
-        print("MY APPLICATIONS ERROR:", e)
+        print(
+            "MY APPLICATIONS ERROR:",
+            e
+        )
 
         flash(
             "Unable to load applications: " + str(e),
             "error"
         )
 
-        return redirect(url_for("dashboard"))
+        return redirect(
+            url_for("dashboard")
+        )
 
     finally:
 
@@ -1457,11 +1516,13 @@ def recommendations():
             if profile:
 
                 if profile["education"]:
+
                     education_values.append(
                         profile["education"].lower()
                     )
 
                 if profile["degree"]:
+
                     education_values.append(
                         profile["degree"].lower()
                     )
@@ -1473,6 +1534,7 @@ def recommendations():
             for education in education_values:
 
                 if education in job_education:
+
                     education_score = 100
                     break
 
@@ -1485,6 +1547,7 @@ def recommendations():
                 )
 
                 if education_words & job_education_words:
+
                     education_score = 50
 
             # ------------------------------------------------
@@ -1496,7 +1559,9 @@ def recommendations():
             if profile:
 
                 user_experience = (
-                    float(profile["experience_years"])
+                    float(
+                        profile["experience_years"]
+                    )
                     if profile["experience_years"]
                     else 0
                 )
@@ -1534,29 +1599,49 @@ def recommendations():
             )
 
             if final_score >= 90:
+
                 category = "Excellent Match"
 
             elif final_score >= 75:
+
                 category = "Strong Match"
 
             elif final_score >= 60:
+
                 category = "Good Match"
 
             elif final_score >= 40:
+
                 category = "Partial Match"
 
             else:
+
                 category = "Low Match"
 
             recommendations_list.append({
                 "job": job,
                 "score": final_score,
                 "category": category,
-                "skill_score": round(skill_score, 2),
-                "role_score": round(role_score, 2),
-                "location_score": round(location_score, 2),
-                "education_score": round(education_score, 2),
-                "experience_score": round(experience_score, 2)
+                "skill_score": round(
+                    skill_score,
+                    2
+                ),
+                "role_score": round(
+                    role_score,
+                    2
+                ),
+                "location_score": round(
+                    location_score,
+                    2
+                ),
+                "education_score": round(
+                    education_score,
+                    2
+                ),
+                "experience_score": round(
+                    experience_score,
+                    2
+                )
             })
 
         recommendations_list.sort(
@@ -1571,14 +1656,20 @@ def recommendations():
 
     except Exception as e:
 
-        print("RECOMMENDATIONS ERROR:", e)
+        print(
+            "RECOMMENDATIONS ERROR:",
+            e
+        )
 
         flash(
-            "Unable to generate recommendations: " + str(e),
+            "Unable to generate recommendations: "
+            + str(e),
             "error"
         )
 
-        return redirect(url_for("dashboard"))
+        return redirect(
+            url_for("dashboard")
+        )
 
     finally:
 
@@ -1624,21 +1715,27 @@ def admin_jobs():
 
         jobs_list = cur.fetchall()
 
-        total_opportunities = len(jobs_list)
+        total_opportunities = len(
+            jobs_list
+        )
 
         active_count = sum(
-            1 for job in jobs_list
+            1
+            for job in jobs_list
             if job["is_active"]
         )
 
         inactive_count = (
-            total_opportunities - active_count
+            total_opportunities
+            - active_count
         )
 
         internship_count = sum(
-            1 for job in jobs_list
+            1
+            for job in jobs_list
             if job["job_type"]
-            and job["job_type"].lower() == "internship"
+            and job["job_type"].lower()
+            == "internship"
         )
 
         return render_template(
@@ -1652,14 +1749,20 @@ def admin_jobs():
 
     except Exception as e:
 
-        print("ADMIN JOBS ERROR:", e)
+        print(
+            "ADMIN JOBS ERROR:",
+            e
+        )
 
         flash(
-            "Unable to load jobs: " + str(e),
+            "Unable to load jobs: "
+            + str(e),
             "error"
         )
 
-        return redirect(url_for("admin_dashboard"))
+        return redirect(
+            url_for("admin_dashboard")
+        )
 
     finally:
 
@@ -1674,13 +1777,20 @@ def admin_jobs():
 # ADMIN - ADD JOB
 # ============================================================
 
-@app.route("/admin/jobs/add", methods=["GET", "POST"])
+@app.route(
+    "/admin/jobs/add",
+    methods=["GET", "POST"]
+)
 @admin_required
 def admin_add_job():
 
     if request.method == "POST":
 
-        title = request.form.get("title", "").strip()
+        title = request.form.get(
+            "title",
+            ""
+        ).strip()
+
         company_name = request.form.get(
             "company_name",
             ""
@@ -1729,12 +1839,22 @@ def admin_add_job():
         ).strip()
 
         is_active = (
-            request.form.get("is_active") == "on"
-            or request.form.get("is_active") == "true"
-            or request.form.get("is_active") == "1"
+            request.form.get(
+                "is_active"
+            ) == "on"
+            or request.form.get(
+                "is_active"
+            ) == "true"
+            or request.form.get(
+                "is_active"
+            ) == "1"
         )
 
-        if not title or not company_name or not job_type:
+        if (
+            not title
+            or not company_name
+            or not job_type
+        ):
 
             flash(
                 "Title, company name and opportunity type are required.",
@@ -1813,10 +1933,14 @@ def admin_add_job():
             if conn:
                 conn.rollback()
 
-            print("ADMIN ADD JOB ERROR:", e)
+            print(
+                "ADMIN ADD JOB ERROR:",
+                e
+            )
 
             flash(
-                "Unable to add opportunity: " + str(e),
+                "Unable to add opportunity: "
+                + str(e),
                 "error"
             )
 
@@ -1910,9 +2034,15 @@ def admin_edit_job(job_id):
             ).strip()
 
             is_active = (
-                request.form.get("is_active") == "on"
-                or request.form.get("is_active") == "true"
-                or request.form.get("is_active") == "1"
+                request.form.get(
+                    "is_active"
+                ) == "on"
+                or request.form.get(
+                    "is_active"
+                ) == "true"
+                or request.form.get(
+                    "is_active"
+                ) == "1"
             )
 
             cur.execute("""
@@ -2001,10 +2131,14 @@ def admin_edit_job(job_id):
         if conn:
             conn.rollback()
 
-        print("ADMIN EDIT JOB ERROR:", e)
+        print(
+            "ADMIN EDIT JOB ERROR:",
+            e
+        )
 
         flash(
-            "Unable to edit opportunity: " + str(e),
+            "Unable to edit opportunity: "
+            + str(e),
             "error"
         )
 
@@ -2058,10 +2192,14 @@ def admin_toggle_job(job_id):
         if conn:
             conn.rollback()
 
-        print("TOGGLE JOB ERROR:", e)
+        print(
+            "TOGGLE JOB ERROR:",
+            e
+        )
 
         flash(
-            "Unable to change opportunity status: " + str(e),
+            "Unable to change opportunity status: "
+            + str(e),
             "error"
         )
 
@@ -2098,18 +2236,21 @@ def admin_delete_job(job_id):
         cur = conn.cursor()
 
         # Delete job skills first
+
         cur.execute("""
             DELETE FROM job_skills
             WHERE job_id = %s
         """, (job_id,))
 
         # Delete applications
+
         cur.execute("""
             DELETE FROM applications
             WHERE job_id = %s
         """, (job_id,))
 
         # Delete job
+
         cur.execute("""
             DELETE FROM jobs
             WHERE job_id = %s
@@ -2127,10 +2268,14 @@ def admin_delete_job(job_id):
         if conn:
             conn.rollback()
 
-        print("DELETE JOB ERROR:", e)
+        print(
+            "DELETE JOB ERROR:",
+            e
+        )
 
         flash(
-            "Unable to delete opportunity: " + str(e),
+            "Unable to delete opportunity: "
+            + str(e),
             "error"
         )
 
@@ -2179,7 +2324,9 @@ def admin_job_skills(job_id):
                 title,
                 company_name,
                 job_type,
-                location
+                location,
+                experience_required,
+                education_required
             FROM jobs
             WHERE job_id = %s
         """, (job_id,))
@@ -2198,13 +2345,14 @@ def admin_job_skills(job_id):
             )
 
         # ----------------------------------------------------
-        # ADD SKILL
+        # ADD / UPDATE SKILL
         # ----------------------------------------------------
 
         if request.method == "POST":
 
             skill_id = request.form.get(
-                "skill_id"
+                "skill_id",
+                type=int
             )
 
             importance = request.form.get(
@@ -2232,20 +2380,28 @@ def admin_job_skills(job_id):
                     importance
                 )
 
-            except ValueError:
+            except (
+                ValueError,
+                TypeError
+            ):
 
                 importance = 3
 
-            if importance < 1:
-                importance = 1
+            importance = max(
+                1,
+                min(
+                    5,
+                    importance
+                )
+            )
 
-            if importance > 5:
-                importance = 5
-
-            # Check existing skill
+            # ------------------------------------------------
+            # CHECK EXISTING SKILL
+            # ------------------------------------------------
 
             cur.execute("""
-                SELECT job_skill_id
+                SELECT
+                    job_skill_id
                 FROM job_skills
                 WHERE job_id = %s
                 AND skill_id = %s
@@ -2255,6 +2411,10 @@ def admin_job_skills(job_id):
             ))
 
             existing_skill = cur.fetchone()
+
+            # ------------------------------------------------
+            # UPDATE EXISTING SKILL
+            # ------------------------------------------------
 
             if existing_skill:
 
@@ -2273,6 +2433,10 @@ def admin_job_skills(job_id):
                     "Skill already exists. Importance updated.",
                     "success"
                 )
+
+            # ------------------------------------------------
+            # INSERT NEW SKILL
+            # ------------------------------------------------
 
             else:
 
@@ -2330,6 +2494,7 @@ def admin_job_skills(job_id):
         cur.execute("""
             SELECT
                 js.job_skill_id,
+                js.job_id,
                 js.skill_id,
                 js.importance,
                 s.skill_name
@@ -2342,15 +2507,35 @@ def admin_job_skills(job_id):
 
         job_skills = cur.fetchall()
 
+        # ----------------------------------------------------
+        # SELECTED SKILLS
+        # ----------------------------------------------------
+
         selected_skill_ids = {
             skill["skill_id"]
             for skill in job_skills
         }
 
+        # ----------------------------------------------------
+        # AVAILABLE SKILLS
+        # ----------------------------------------------------
+
+        available_skills = [
+            skill
+            for skill in all_skills
+            if skill["skill_id"]
+            not in selected_skill_ids
+        ]
+
+        # ----------------------------------------------------
+        # TEMPLATE
+        # ----------------------------------------------------
+
         return render_template(
             "admin_job_skills.html",
             job=job,
             all_skills=all_skills,
+            available_skills=available_skills,
             job_skills=job_skills,
             selected_skill_ids=selected_skill_ids
         )
@@ -2389,7 +2574,7 @@ def admin_job_skills(job_id):
 # ============================================================
 
 @app.route(
-    "/admin/jobs/<int:job_id>/skills/delete/<int:job_skill_id>",
+    "/admin/jobs/<int:job_id>/skills/<int:job_skill_id>/delete",
     methods=["POST"]
 )
 @admin_required
@@ -2406,6 +2591,10 @@ def admin_delete_job_skill(
         conn = get_db_connection()
         cur = conn.cursor()
 
+        # ----------------------------------------------------
+        # DELETE ONLY IF SKILL BELONGS TO THIS JOB
+        # ----------------------------------------------------
+
         cur.execute("""
             DELETE FROM job_skills
             WHERE job_skill_id = %s
@@ -2415,12 +2604,23 @@ def admin_delete_job_skill(
             job_id
         ))
 
-        conn.commit()
+        if cur.rowcount == 0:
 
-        flash(
-            "Skill removed successfully.",
-            "success"
-        )
+            conn.rollback()
+
+            flash(
+                "Job skill not found.",
+                "error"
+            )
+
+        else:
+
+            conn.commit()
+
+            flash(
+                "Job skill deleted successfully.",
+                "success"
+            )
 
     except Exception as e:
 
@@ -2428,12 +2628,13 @@ def admin_delete_job_skill(
             conn.rollback()
 
         print(
-            "DELETE JOB SKILL ERROR:",
+            "ADMIN DELETE JOB SKILL ERROR:",
             e
         )
 
         flash(
-            "Unable to remove skill: " + str(e),
+            "Unable to delete job skill: "
+            + str(e),
             "error"
         )
 
@@ -2469,19 +2670,23 @@ def test_db():
 
         cur = conn.cursor()
 
-        cur.execute("SELECT version();")
+        cur.execute(
+            "SELECT version();"
+        )
 
         version = cur.fetchone()[0]
 
         return (
-            "CareerMatch Database Connected<br><br>"
+            "CareerMatch Database Connected"
+            "<br><br>"
             + version
         )
 
     except Exception as e:
 
         return (
-            "Database Connection Failed:<br>"
+            "Database Connection Failed:"
+            "<br>"
             + str(e)
         )
 
