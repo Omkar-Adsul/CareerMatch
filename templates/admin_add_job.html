@@ -6,251 +6,661 @@
 
     <title>Add Opportunity | CareerMatch</title>
 
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+   <style>
+/* =========================================================
+   CAREERMATCH — ADMIN ADD JOB
+   NEON AURORA / DARK GLASS THEME
+   ========================================================= */
 
-        body {
-            font-family: Arial, sans-serif;
-            background: #f5f7fb;
-            color: #1f2937;
-        }
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
 
-        .navbar {
-            height: 70px;
-            background: white;
-            border-bottom: 1px solid #e5e7eb;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 35px;
-        }
+body {
+    font-family:
+        Inter,
+        "Segoe UI",
+        Roboto,
+        Arial,
+        sans-serif;
 
-        .logo {
-            color: #2563eb;
-            text-decoration: none;
-            font-size: 24px;
-            font-weight: 700;
-        }
+    background:
+        radial-gradient(
+            circle at 10% 10%,
+            rgba(124, 58, 237, 0.16),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 90% 20%,
+            rgba(6, 182, 212, 0.12),
+            transparent 28%
+        ),
+        #070b17;
 
-        .back-btn {
-            text-decoration: none;
-            color: #475569;
-            font-weight: 600;
-            font-size: 14px;
-        }
+    color: #f1f5f9;
 
-        .back-btn:hover {
-            color: #2563eb;
-        }
+    min-height: 100vh;
 
-        .container {
-            width: 92%;
-            max-width: 1000px;
-            margin: 35px auto;
-        }
+    line-height: 1.6;
+}
 
-        .header {
-            margin-bottom: 25px;
-        }
 
-        .header h1 {
-            font-size: 28px;
-            margin-bottom: 7px;
-        }
+/* =========================================================
+   NAVBAR
+   ========================================================= */
 
-        .header p {
-            color: #6b7280;
-            font-size: 14px;
-        }
+.navbar {
+    height: 72px;
 
-        .form-card {
-            background: white;
-            border: 1px solid #e5e7eb;
-            border-radius: 14px;
-            padding: 30px;
-        }
+    background: rgba(8, 15, 30, 0.82);
 
-        .section {
-            margin-bottom: 30px;
-        }
+    border-bottom: 1px solid rgba(148, 163, 184, 0.12);
 
-        .section:last-child {
-            margin-bottom: 0;
-        }
+    display: flex;
 
-        .section-title {
-            font-size: 18px;
-            font-weight: 700;
-            margin-bottom: 18px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid #e5e7eb;
-        }
+    align-items: center;
 
-        .form-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-        }
+    justify-content: space-between;
 
-        .form-group {
-            display: flex;
-            flex-direction: column;
-        }
+    padding: 0 40px;
 
-        .full {
-            grid-column: 1 / -1;
-        }
+    backdrop-filter: blur(18px);
 
-        label {
-            font-size: 13px;
-            font-weight: 700;
-            margin-bottom: 7px;
-            color: #374151;
-        }
+    position: sticky;
 
-        input,
-        select,
-        textarea {
-            width: 100%;
-            border: 1px solid #d1d5db;
-            border-radius: 8px;
-            padding: 11px 12px;
-            font-size: 14px;
-            font-family: inherit;
-            outline: none;
-            background: white;
-        }
+    top: 0;
 
-        input:focus,
-        select:focus,
-        textarea:focus {
-            border-color: #2563eb;
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.10);
-        }
+    z-index: 100;
+}
 
-        textarea {
-            min-height: 150px;
-            resize: vertical;
-        }
 
-        .help {
-            color: #9ca3af;
-            font-size: 12px;
-            margin-top: 5px;
-        }
+.logo {
+    color: #c4b5fd;
 
-        .status-box {
-            background: #f8fafc;
-            border: 1px solid #e5e7eb;
-            border-radius: 8px;
-            padding: 15px;
-        }
+    text-decoration: none;
 
-        .status-option {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
+    font-size: 25px;
 
-        .status-option input {
-            width: auto;
-        }
+    font-weight: 800;
 
-        .status-option label {
-            margin: 0;
-            font-size: 14px;
-        }
+    letter-spacing: -0.5px;
 
-        .actions {
-            display: flex;
-            justify-content: flex-end;
-            gap: 12px;
-            margin-top: 30px;
-            padding-top: 22px;
-            border-top: 1px solid #e5e7eb;
-        }
+    background:
+        linear-gradient(
+            90deg,
+            #c084fc,
+            #67e8f9
+        );
 
-        .btn {
-            border: none;
-            border-radius: 8px;
-            padding: 12px 22px;
-            font-size: 14px;
-            font-weight: 700;
-            cursor: pointer;
-            text-decoration: none;
-        }
+    -webkit-background-clip: text;
 
-        .cancel {
-            background: #f1f5f9;
-            color: #475569;
-        }
+    -webkit-text-fill-color: transparent;
+}
 
-        .cancel:hover {
-            background: #e2e8f0;
-        }
 
-        .submit {
-            background: #2563eb;
-            color: white;
-        }
+.back-btn {
+    text-decoration: none;
 
-        .submit:hover {
-            background: #1d4ed8;
-        }
+    color: #94a3b8;
 
-        .required {
-            color: #dc2626;
-        }
+    font-weight: 600;
 
-        .flash {
-            padding: 14px 18px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            font-size: 14px;
-        }
+    font-size: 14px;
 
-        .flash.error {
-            background: #fee2e2;
-            color: #991b1b;
-            border: 1px solid #fecaca;
-        }
+    padding: 9px 14px;
 
-        @media (max-width: 700px) {
-            .navbar {
-                padding: 0 18px;
-            }
+    border: 1px solid rgba(148, 163, 184, 0.15);
 
-            .container {
-                width: 95%;
-                margin: 22px auto;
-            }
+    border-radius: 9px;
 
-            .form-card {
-                padding: 20px;
-            }
+    transition:
+        color 0.2s,
+        border-color 0.2s,
+        background 0.2s;
+}
 
-            .form-grid {
-                grid-template-columns: 1fr;
-            }
 
-            .full {
-                grid-column: auto;
-            }
+.back-btn:hover {
+    color: #67e8f9;
 
-            .actions {
-                flex-direction: column;
-            }
+    border-color: rgba(103, 232, 249, 0.30);
 
-            .btn {
-                text-align: center;
-                width: 100%;
-            }
-        }
-    </style>
+    background: rgba(6, 182, 212, 0.06);
+}
+
+
+/* =========================================================
+   MAIN CONTAINER
+   ========================================================= */
+
+.container {
+    width: 92%;
+
+    max-width: 1050px;
+
+    margin: 45px auto;
+
+    padding-bottom: 50px;
+}
+
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.header {
+    margin-bottom: 28px;
+}
+
+
+.header h1 {
+    font-size: 34px;
+
+    margin-bottom: 7px;
+
+    font-weight: 800;
+
+    letter-spacing: -0.8px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #f8fafc,
+            #c084fc,
+            #67e8f9
+        );
+
+    -webkit-background-clip: text;
+
+    -webkit-text-fill-color: transparent;
+}
+
+
+.header p {
+    color: #94a3b8;
+
+    font-size: 14px;
+}
+
+
+/* =========================================================
+   FORM CARD
+   ========================================================= */
+
+.form-card {
+    background:
+        linear-gradient(
+            145deg,
+            rgba(17, 24, 39, 0.90),
+            rgba(15, 23, 42, 0.74)
+        );
+
+    border: 1px solid rgba(148, 163, 184, 0.13);
+
+    border-radius: 22px;
+
+    padding: 34px;
+
+    box-shadow:
+        0 25px 60px rgba(0, 0, 0, 0.30);
+
+    backdrop-filter: blur(18px);
+}
+
+
+/* =========================================================
+   FORM SECTIONS
+   ========================================================= */
+
+.section {
+    margin-bottom: 34px;
+}
+
+
+.section:last-child {
+    margin-bottom: 0;
+}
+
+
+.section-title {
+    font-size: 18px;
+
+    font-weight: 750;
+
+    margin-bottom: 20px;
+
+    padding-bottom: 12px;
+
+    color: #e2e8f0;
+
+    border-bottom: 1px solid rgba(148, 163, 184, 0.12);
+
+    position: relative;
+}
+
+
+.section-title::after {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+
+    bottom: -1px;
+
+    width: 65px;
+
+    height: 2px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #8b5cf6,
+            #06b6d4
+        );
+
+    border-radius: 5px;
+}
+
+
+/* =========================================================
+   FORM GRID
+   ========================================================= */
+
+.form-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 21px;
+}
+
+
+.form-group {
+    display: flex;
+
+    flex-direction: column;
+}
+
+
+.full {
+    grid-column: 1 / -1;
+}
+
+
+/* =========================================================
+   LABELS
+   ========================================================= */
+
+label {
+    font-size: 13px;
+
+    font-weight: 700;
+
+    margin-bottom: 7px;
+
+    color: #cbd5e1;
+}
+
+
+.required {
+    color: #fb7185;
+
+    margin-left: 2px;
+}
+
+
+/* =========================================================
+   INPUTS
+   ========================================================= */
+
+input,
+select,
+textarea {
+    width: 100%;
+
+    border: 1px solid #293752;
+
+    border-radius: 11px;
+
+    padding: 12px 13px;
+
+    font-size: 14px;
+
+    font-family: inherit;
+
+    outline: none;
+
+    background: rgba(8, 15, 30, 0.78);
+
+    color: #f8fafc;
+
+    transition:
+        border-color 0.2s,
+        box-shadow 0.2s,
+        background 0.2s;
+}
+
+
+input::placeholder,
+textarea::placeholder {
+    color: #64748b;
+}
+
+
+select {
+    cursor: pointer;
+}
+
+
+select option {
+    background: #111827;
+
+    color: #f8fafc;
+}
+
+
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: #8b5cf6;
+
+    background: rgba(8, 15, 30, 0.92);
+
+    box-shadow:
+        0 0 0 3px rgba(139, 92, 246, 0.10),
+        0 0 22px rgba(139, 92, 246, 0.07);
+}
+
+
+textarea {
+    min-height: 160px;
+
+    resize: vertical;
+}
+
+
+/* =========================================================
+   HELP TEXT
+   ========================================================= */
+
+.help {
+    color: #64748b;
+
+    font-size: 12px;
+
+    margin-top: 6px;
+}
+
+
+/* =========================================================
+   STATUS
+   ========================================================= */
+
+.status-box {
+    background:
+        rgba(8, 15, 30, 0.55);
+
+    border: 1px solid rgba(148, 163, 184, 0.13);
+
+    border-radius: 12px;
+
+    padding: 16px;
+
+    transition:
+        border-color 0.2s,
+        background 0.2s;
+}
+
+
+.status-box:hover {
+    border-color: rgba(139, 92, 246, 0.25);
+
+    background:
+        rgba(15, 23, 42, 0.72);
+}
+
+
+.status-option {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+}
+
+
+.status-option input {
+    width: 17px;
+
+    height: 17px;
+
+    accent-color: #8b5cf6;
+
+    cursor: pointer;
+}
+
+
+.status-option label {
+    margin: 0;
+
+    font-size: 14px;
+
+    color: #cbd5e1;
+
+    cursor: pointer;
+}
+
+
+/* =========================================================
+   ACTIONS
+   ========================================================= */
+
+.actions {
+    display: flex;
+
+    justify-content: flex-end;
+
+    gap: 12px;
+
+    margin-top: 34px;
+
+    padding-top: 24px;
+
+    border-top: 1px solid rgba(148, 163, 184, 0.12);
+}
+
+
+.btn {
+    border: none;
+
+    border-radius: 10px;
+
+    padding: 12px 23px;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    text-decoration: none;
+
+    transition:
+        transform 0.2s,
+        box-shadow 0.2s,
+        background 0.2s;
+}
+
+
+/* =========================================================
+   CANCEL
+   ========================================================= */
+
+.cancel {
+    background:
+        rgba(30, 41, 59, 0.75);
+
+    color: #cbd5e1;
+
+    border: 1px solid rgba(148, 163, 184, 0.15);
+}
+
+
+.cancel:hover {
+    background: rgba(51, 65, 85, 0.80);
+
+    color: #f8fafc;
+
+    transform: translateY(-2px);
+}
+
+
+/* =========================================================
+   SUBMIT
+   ========================================================= */
+
+.submit {
+    background:
+        linear-gradient(
+            135deg,
+            #7c3aed,
+            #06b6d4
+        );
+
+    color: white;
+
+    box-shadow:
+        0 10px 25px rgba(124, 58, 237, 0.20);
+}
+
+
+.submit:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 15px 35px rgba(124, 58, 237, 0.35);
+}
+
+
+/* =========================================================
+   FLASH MESSAGE
+   ========================================================= */
+
+.flash {
+    padding: 14px 18px;
+
+    border-radius: 11px;
+
+    margin-bottom: 22px;
+
+    font-size: 14px;
+}
+
+
+.flash.error {
+    background:
+        rgba(239, 68, 68, 0.10);
+
+    color: #fca5a5;
+
+    border: 1px solid rgba(239, 68, 68, 0.25);
+
+    box-shadow:
+        0 8px 25px rgba(239, 68, 68, 0.05);
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+    .navbar {
+        height: 65px;
+
+        padding: 0 18px;
+    }
+
+    .logo {
+        font-size: 21px;
+    }
+
+    .back-btn {
+        font-size: 13px;
+
+        padding: 8px 10px;
+    }
+
+    .container {
+        width: 94%;
+
+        margin: 28px auto;
+    }
+
+    .header h1 {
+        font-size: 29px;
+    }
+
+    .form-card {
+        padding: 22px;
+
+        border-radius: 17px;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .full {
+        grid-column: auto;
+    }
+
+    .actions {
+        flex-direction: column;
+    }
+
+    .btn {
+        width: 100%;
+
+        text-align: center;
+    }
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+   ========================================================= */
+
+@media (max-width: 450px) {
+
+    .container {
+        width: 96%;
+    }
+
+    .form-card {
+        padding: 18px;
+    }
+
+    .header h1 {
+        font-size: 26px;
+    }
+
+    .header p {
+        font-size: 13px;
+    }
+
+    input,
+    select,
+    textarea {
+        padding: 11px;
+    }
+}
+</style>
 </head>
 
 <body>

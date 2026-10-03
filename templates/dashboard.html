@@ -8,280 +8,654 @@
     <title>Dashboard - CareerMatch</title>
 
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+/* =========================================================
+   CAREERMATCH — NEON AURORA / DARK GLASS THEME
+   USER DASHBOARD
+   ========================================================= */
 
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-            background: #f5f7fb;
-            color: #222;
-        }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-        /* ================= NAVBAR ================= */
+body {
+    font-family: Arial, Helvetica, sans-serif;
 
-        .navbar {
-            background: #ffffff;
-            height: 70px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 7%;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
+    background:
+        radial-gradient(circle at 10% 10%, rgba(124, 58, 237, 0.18), transparent 30%),
+        radial-gradient(circle at 90% 20%, rgba(6, 182, 212, 0.14), transparent 30%),
+        linear-gradient(135deg, #070b18, #0b1020 50%, #090d1a);
 
-        .logo {
-            font-size: 25px;
-            font-weight: bold;
-            color: #2563eb;
-            text-decoration: none;
-        }
+    color: #e5e7eb;
 
-        .logo span {
-            color: #111827;
-        }
+    min-height: 100vh;
+}
 
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 25px;
-        }
+/* =========================================================
+   NAVBAR
+   ========================================================= */
 
-        .nav-links a {
-            text-decoration: none;
-            color: #374151;
-            font-size: 15px;
-            font-weight: 500;
-            transition: 0.3s;
-        }
+.navbar {
+    background: rgba(10, 15, 30, 0.82);
 
-        .nav-links a:hover {
-            color: #2563eb;
-        }
+    height: 70px;
 
-        .logout-btn {
-            background: #ef4444;
-            color: white !important;
-            padding: 9px 16px;
-            border-radius: 7px;
-        }
+    display: flex;
 
-        .logout-btn:hover {
-            background: #dc2626;
-        }
+    align-items: center;
 
-        /* ================= CONTAINER ================= */
+    justify-content: space-between;
 
-        .container {
-            width: 86%;
-            max-width: 1200px;
-            margin: 40px auto;
-        }
+    padding: 0 7%;
 
-        /* ================= WELCOME ================= */
+    border-bottom: 1px solid rgba(148, 163, 184, 0.15);
 
-        .welcome {
-            background: linear-gradient(135deg, #2563eb, #4f46e5);
-            color: white;
-            padding: 35px;
-            border-radius: 15px;
-            margin-bottom: 30px;
-            box-shadow: 0 8px 25px rgba(37, 99, 235, 0.20);
-        }
+    box-shadow:
+        0 8px 30px rgba(0, 0, 0, 0.20);
 
-        .welcome h1 {
-            font-size: 30px;
-            margin-bottom: 10px;
-        }
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
 
-        .welcome p {
-            font-size: 16px;
-            opacity: 0.95;
-        }
+    position: sticky;
 
-        /* ================= SECTION TITLE ================= */
+    top: 0;
 
-        .section-title {
-            font-size: 23px;
-            margin-bottom: 20px;
-            color: #111827;
-        }
+    z-index: 1000;
+}
 
-        /* ================= DASHBOARD CARDS ================= */
+.logo {
+    font-size: 25px;
 
-        .dashboard-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 22px;
-            margin-bottom: 35px;
-        }
+    font-weight: bold;
 
-        .dashboard-card {
-            background: white;
-            padding: 25px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.07);
-            border: 1px solid #e5e7eb;
-            transition: 0.3s;
-        }
+    color: #a78bfa;
 
-        .dashboard-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 22px rgba(0, 0, 0, 0.10);
-        }
+    text-decoration: none;
 
-        .card-icon {
-            width: 50px;
-            height: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: #eff6ff;
-            color: #2563eb;
-            border-radius: 10px;
-            font-size: 23px;
-            margin-bottom: 17px;
-        }
+    transition: 0.3s ease;
+}
 
-        .dashboard-card h3 {
-            font-size: 19px;
-            margin-bottom: 10px;
-            color: #111827;
-        }
+.logo span {
+    color: #f1f5f9;
+}
 
-        .dashboard-card p {
-            color: #6b7280;
-            line-height: 1.6;
-            font-size: 14px;
-            margin-bottom: 18px;
-        }
+.logo:hover {
+    color: #22d3ee;
 
-        .card-btn {
-            display: inline-block;
-            text-decoration: none;
-            background: #2563eb;
-            color: white;
-            padding: 10px 17px;
-            border-radius: 7px;
-            font-size: 14px;
-            transition: 0.3s;
-        }
+    text-shadow:
+        0 0 16px rgba(34, 211, 238, 0.4);
+}
 
-        .card-btn:hover {
-            background: #1d4ed8;
-        }
+.nav-links {
+    display: flex;
 
-        .secondary-btn {
-            background: #111827;
-        }
+    align-items: center;
 
-        .secondary-btn:hover {
-            background: #374151;
-        }
+    gap: 25px;
+}
 
-        /* ================= QUICK ACTIONS ================= */
+.nav-links a {
+    text-decoration: none;
 
-        .quick-section {
-            background: white;
-            padding: 28px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
-            border: 1px solid #e5e7eb;
-        }
+    color: #aab4c8;
 
-        .quick-actions {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
+    font-size: 15px;
 
-        .quick-actions a {
-            text-decoration: none;
-            padding: 11px 18px;
-            border-radius: 7px;
-            border: 1px solid #dbeafe;
-            background: #eff6ff;
-            color: #2563eb;
-            font-size: 14px;
-            font-weight: 500;
-            transition: 0.3s;
-        }
+    font-weight: 500;
 
-        .quick-actions a:hover {
-            background: #2563eb;
-            color: white;
-        }
+    transition: 0.25s ease;
+}
 
-        /* ================= FOOTER ================= */
+.nav-links a:hover {
+    color: #22d3ee;
 
-        footer {
-            text-align: center;
-            padding: 25px;
-            margin-top: 50px;
-            color: #6b7280;
-            font-size: 14px;
-        }
+    text-shadow:
+        0 0 12px rgba(34, 211, 238, 0.3);
+}
 
-        /* ================= RESPONSIVE ================= */
+/* =========================================================
+   LOGOUT
+   ========================================================= */
 
-        @media (max-width: 900px) {
-            .dashboard-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
+.logout-btn {
+    background: rgba(239, 68, 68, 0.12);
 
-            .navbar {
-                padding: 0 4%;
-            }
+    color: #fca5a5 !important;
 
-            .nav-links {
-                gap: 15px;
-            }
-        }
+    padding: 9px 16px;
 
-        @media (max-width: 650px) {
-            .dashboard-grid {
-                grid-template-columns: 1fr;
-            }
+    border-radius: 8px;
 
-            .navbar {
-                height: auto;
-                padding: 18px 5%;
-                flex-direction: column;
-                gap: 15px;
-            }
+    border: 1px solid rgba(248, 113, 113, 0.22);
 
-            .nav-links {
-                flex-wrap: wrap;
-                justify-content: center;
-            }
+    transition: 0.25s ease;
+}
 
-            .container {
-                width: 92%;
-                margin-top: 25px;
-            }
+.logout-btn:hover {
+    background: rgba(239, 68, 68, 0.22);
 
-            .welcome {
-                padding: 25px;
-            }
+    color: #fecaca !important;
 
-            .welcome h1 {
-                font-size: 24px;
-            }
+    border-color: rgba(248, 113, 113, 0.35);
 
-            .quick-actions {
-                flex-direction: column;
-            }
+    transform: translateY(-1px);
+}
 
-            .quick-actions a {
-                text-align: center;
-            }
-        }
-    </style>
+/* =========================================================
+   CONTAINER
+   ========================================================= */
+
+.container {
+    width: 86%;
+
+    max-width: 1200px;
+
+    margin: 40px auto 60px;
+}
+
+/* =========================================================
+   WELCOME SECTION
+   ========================================================= */
+
+.welcome {
+    background:
+        linear-gradient(
+            135deg,
+            rgba(109, 40, 217, 0.92),
+            rgba(79, 70, 229, 0.88),
+            rgba(8, 145, 178, 0.82)
+        );
+
+    color: white;
+
+    padding: 35px;
+
+    border-radius: 16px;
+
+    margin-bottom: 30px;
+
+    border: 1px solid rgba(255, 255, 255, 0.15);
+
+    box-shadow:
+        0 15px 40px rgba(76, 29, 149, 0.28),
+        0 0 35px rgba(34, 211, 238, 0.08);
+
+    position: relative;
+
+    overflow: hidden;
+}
+
+.welcome::before {
+    content: "";
+
+    position: absolute;
+
+    width: 220px;
+    height: 220px;
+
+    right: -70px;
+    top: -100px;
+
+    background: rgba(255, 255, 255, 0.08);
+
+    border-radius: 50%;
+
+    filter: blur(2px);
+}
+
+.welcome::after {
+    content: "";
+
+    position: absolute;
+
+    width: 150px;
+    height: 150px;
+
+    right: 100px;
+    bottom: -100px;
+
+    background: rgba(34, 211, 238, 0.10);
+
+    border-radius: 50%;
+
+    filter: blur(15px);
+}
+
+.welcome h1 {
+    font-size: 30px;
+
+    margin-bottom: 10px;
+
+    position: relative;
+
+    z-index: 1;
+}
+
+.welcome p {
+    font-size: 16px;
+
+    opacity: 0.92;
+
+    line-height: 1.6;
+
+    position: relative;
+
+    z-index: 1;
+}
+
+/* =========================================================
+   SECTION TITLE
+   ========================================================= */
+
+.section-title {
+    font-size: 23px;
+
+    margin-bottom: 20px;
+
+    color: #f1f5f9;
+}
+
+/* =========================================================
+   DASHBOARD GRID
+   ========================================================= */
+
+.dashboard-grid {
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 22px;
+
+    margin-bottom: 35px;
+}
+
+/* =========================================================
+   DASHBOARD CARD
+   ========================================================= */
+
+.dashboard-card {
+    background:
+        linear-gradient(
+            145deg,
+            rgba(20, 27, 48, 0.92),
+            rgba(12, 18, 35, 0.92)
+        );
+
+    padding: 25px;
+
+    border-radius: 14px;
+
+    border: 1px solid rgba(148, 163, 184, 0.15);
+
+    box-shadow:
+        0 15px 35px rgba(0, 0, 0, 0.25);
+
+    transition: 0.3s ease;
+
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+}
+
+.dashboard-card:hover {
+    transform: translateY(-5px);
+
+    border-color: rgba(139, 92, 246, 0.30);
+
+    box-shadow:
+        0 20px 45px rgba(0, 0, 0, 0.30),
+        0 0 25px rgba(124, 58, 237, 0.08);
+}
+
+/* =========================================================
+   CARD ICON
+   ========================================================= */
+
+.card-icon {
+    width: 50px;
+
+    height: 50px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background:
+        rgba(139, 92, 246, 0.12);
+
+    color: #a78bfa;
+
+    border-radius: 11px;
+
+    font-size: 23px;
+
+    margin-bottom: 17px;
+
+    border: 1px solid rgba(139, 92, 246, 0.20);
+
+    transition: 0.3s ease;
+}
+
+.dashboard-card:hover .card-icon {
+    background:
+        rgba(34, 211, 238, 0.10);
+
+    color: #22d3ee;
+
+    border-color:
+        rgba(34, 211, 238, 0.25);
+
+    box-shadow:
+        0 0 20px rgba(34, 211, 238, 0.08);
+}
+
+/* =========================================================
+   CARD CONTENT
+   ========================================================= */
+
+.dashboard-card h3 {
+    font-size: 19px;
+
+    margin-bottom: 10px;
+
+    color: #f1f5f9;
+}
+
+.dashboard-card p {
+    color: #94a3b8;
+
+    line-height: 1.6;
+
+    font-size: 14px;
+
+    margin-bottom: 18px;
+}
+
+/* =========================================================
+   CARD BUTTON
+   ========================================================= */
+
+.card-btn {
+    display: inline-block;
+
+    text-decoration: none;
+
+    background:
+        linear-gradient(
+            135deg,
+            #7c3aed,
+            #8b5cf6
+        );
+
+    color: white;
+
+    padding: 10px 17px;
+
+    border-radius: 8px;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    border: 1px solid rgba(167, 139, 250, 0.15);
+
+    box-shadow:
+        0 7px 18px rgba(124, 58, 237, 0.20);
+
+    transition: 0.25s ease;
+}
+
+.card-btn:hover {
+    background:
+        linear-gradient(
+            135deg,
+            #8b5cf6,
+            #06b6d4
+        );
+
+    box-shadow:
+        0 10px 25px rgba(139, 92, 246, 0.30);
+
+    transform: translateY(-2px);
+}
+
+/* =========================================================
+   SECONDARY BUTTON
+   ========================================================= */
+
+.secondary-btn {
+    background:
+        rgba(148, 163, 184, 0.10);
+
+    color: #cbd5e1;
+
+    border-color:
+        rgba(148, 163, 184, 0.18);
+
+    box-shadow: none;
+}
+
+.secondary-btn:hover {
+    background:
+        rgba(148, 163, 184, 0.18);
+
+    color: #f8fafc;
+
+    border-color:
+        rgba(148, 163, 184, 0.30);
+}
+
+/* =========================================================
+   QUICK ACTIONS
+   ========================================================= */
+
+.quick-section {
+    background:
+        linear-gradient(
+            145deg,
+            rgba(20, 27, 48, 0.92),
+            rgba(12, 18, 35, 0.92)
+        );
+
+    padding: 28px;
+
+    border-radius: 14px;
+
+    border: 1px solid rgba(148, 163, 184, 0.15);
+
+    box-shadow:
+        0 15px 35px rgba(0, 0, 0, 0.24);
+
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+}
+
+/* =========================================================
+   QUICK ACTION BUTTONS
+   ========================================================= */
+
+.quick-actions {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 15px;
+}
+
+.quick-actions a {
+    text-decoration: none;
+
+    padding: 11px 18px;
+
+    border-radius: 8px;
+
+    border: 1px solid rgba(139, 92, 246, 0.20);
+
+    background:
+        rgba(139, 92, 246, 0.08);
+
+    color: #c4b5fd;
+
+    font-size: 14px;
+
+    font-weight: 500;
+
+    transition: 0.25s ease;
+}
+
+.quick-actions a:hover {
+    background:
+        linear-gradient(
+            135deg,
+            #7c3aed,
+            #8b5cf6
+        );
+
+    color: white;
+
+    border-color:
+        rgba(167, 139, 250, 0.35);
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 8px 20px rgba(124, 58, 237, 0.22);
+}
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+footer {
+    text-align: center;
+
+    padding: 25px;
+
+    margin-top: 50px;
+
+    color: #64748b;
+
+    font-size: 14px;
+
+    border-top: 1px solid rgba(148, 163, 184, 0.08);
+}
+
+/* =========================================================
+   ACCESSIBILITY
+   ========================================================= */
+
+button:focus-visible,
+a:focus-visible {
+    outline: 2px solid #22d3ee;
+
+    outline-offset: 3px;
+}
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+    .dashboard-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .navbar {
+        padding: 0 4%;
+    }
+
+    .nav-links {
+        gap: 15px;
+    }
+}
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 650px) {
+
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .navbar {
+        height: auto;
+
+        padding: 18px 5%;
+
+        flex-direction: column;
+
+        gap: 15px;
+    }
+
+    .nav-links {
+        flex-wrap: wrap;
+
+        justify-content: center;
+
+        gap: 12px 18px;
+    }
+
+    .container {
+        width: 92%;
+
+        margin-top: 25px;
+    }
+
+    .welcome {
+        padding: 25px;
+
+        border-radius: 13px;
+    }
+
+    .welcome h1 {
+        font-size: 24px;
+    }
+
+    .welcome p {
+        font-size: 14px;
+    }
+
+    .quick-actions {
+        flex-direction: column;
+    }
+
+    .quick-actions a {
+        text-align: center;
+    }
+}
+
+/* =========================================================
+   SMALL MOBILE
+   ========================================================= */
+
+@media (max-width: 420px) {
+
+    .logo {
+        font-size: 22px;
+    }
+
+    .nav-links a {
+        font-size: 13px;
+    }
+
+    .dashboard-card {
+        padding: 21px;
+    }
+
+    .quick-section {
+        padding: 21px;
+    }
+
+    .section-title {
+        font-size: 21px;
+    }
+}
+</style>
 </head>
 
 <body>

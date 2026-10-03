@@ -7,337 +7,666 @@
     <title>Manage Job Skills - CareerMatch</title>
 
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+/* =========================================================
+   CAREERMATCH — NEON AURORA / DARK GLASS THEME
+   ADMIN JOB SKILLS
+   ========================================================= */
 
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-            background: #f5f7fb;
-            color: #222;
-            min-height: 100vh;
-        }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-        .container {
-            width: 90%;
-            max-width: 1200px;
-            margin: 40px auto;
-        }
+body {
+    font-family: Arial, Helvetica, sans-serif;
 
-        /* =========================
-           TOP BAR
-        ========================= */
+    background:
+        radial-gradient(circle at 10% 10%, rgba(124, 58, 237, 0.18), transparent 30%),
+        radial-gradient(circle at 90% 20%, rgba(6, 182, 212, 0.14), transparent 30%),
+        linear-gradient(135deg, #070b18, #0b1020 50%, #090d1a);
 
-        .top-bar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 25px;
-        }
+    color: #e5e7eb;
+    min-height: 100vh;
+}
 
-        .top-bar h1 {
-            font-size: 28px;
-            color: #222;
-        }
+/* =========================================================
+   MAIN CONTAINER
+   ========================================================= */
 
-        .back-btn {
-            display: inline-block;
-            text-decoration: none;
-            background: #333;
-            color: white;
-            padding: 10px 18px;
-            border-radius: 6px;
-            font-size: 14px;
-            transition: 0.2s;
-        }
+.container {
+    width: 90%;
+    max-width: 1200px;
 
-        .back-btn:hover {
-            background: #111;
-        }
+    margin: 40px auto 60px;
+}
 
-        /* =========================
-           JOB CARD
-        ========================= */
+/* =========================================================
+   TOP BAR
+   ========================================================= */
 
-        .job-card {
-            background: white;
-            border-radius: 10px;
-            padding: 25px;
-            margin-bottom: 25px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
-        }
+.top-bar {
+    display: flex;
 
-        .job-card h2 {
-            margin-bottom: 15px;
-            font-size: 23px;
-            color: #222;
-        }
+    justify-content: space-between;
+    align-items: center;
 
-        .job-info {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            color: #666;
-            font-size: 14px;
-        }
+    margin-bottom: 25px;
+}
 
-        .job-info span {
-            background: #f8fafc;
-            padding: 8px 12px;
-            border-radius: 5px;
-        }
+.top-bar h1 {
+    font-size: 28px;
 
-        /* =========================
-           SECTION
-        ========================= */
+    color: #f8fafc;
 
-        .section {
-            background: white;
-            border-radius: 10px;
-            padding: 25px;
-            margin-bottom: 25px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
-        }
+    letter-spacing: -0.4px;
+}
 
-        .section h2 {
-            margin-bottom: 20px;
-            font-size: 21px;
-            color: #222;
-        }
+.back-btn {
+    display: inline-block;
 
-        /* =========================
-           FORM
-        ========================= */
+    text-decoration: none;
 
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 220px auto;
-            gap: 15px;
-            align-items: end;
-        }
+    background: rgba(255, 255, 255, 0.04);
 
-        .form-group {
-            display: flex;
-            flex-direction: column;
-        }
+    color: #cbd5e1;
 
-        .form-group label {
-            font-weight: bold;
-            margin-bottom: 8px;
-            font-size: 14px;
-            color: #333;
-        }
+    padding: 10px 18px;
 
-        /*
-         * IMPORTANT:
-         * Explicit height and line-height are used here so
-         * all dropdown options display correctly.
-         */
+    border-radius: 9px;
 
-        .form-group select {
-            width: 100%;
-            height: 44px;
-            padding: 8px 12px;
-            border: 1px solid #cbd5e1;
-            border-radius: 6px;
-            font-size: 15px;
-            color: #222;
-            background-color: white;
-            cursor: pointer;
-            outline: none;
-        }
+    font-size: 14px;
+    font-weight: 600;
 
-        .form-group select:focus {
-            border-color: #2563eb;
-            box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.12);
-        }
+    border: 1px solid rgba(148, 163, 184, 0.18);
 
-        /* Importance dropdown specifically */
+    transition: 0.3s ease;
+}
 
-        #importance {
-            height: 44px;
-            min-height: 44px;
-            line-height: normal;
-            padding: 8px 12px;
-            font-size: 15px;
-            color: #222;
-            background: white;
-        }
+.back-btn:hover {
+    background: rgba(34, 211, 238, 0.08);
 
-        #importance option {
-            color: #222;
-            background: white;
-            font-size: 15px;
-            padding: 8px;
-        }
+    color: #22d3ee;
 
-        /* =========================
-           BUTTONS
-        ========================= */
+    border-color: rgba(34, 211, 238, 0.3);
 
-        .btn {
-            border: none;
-            padding: 11px 18px;
-            min-height: 44px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 14px;
-            font-weight: bold;
-            transition: 0.2s;
-        }
+    transform: translateX(-2px);
+}
 
-        .btn-add {
-            background: #2563eb;
-            color: white;
-        }
+/* =========================================================
+   JOB CARD
+   ========================================================= */
 
-        .btn-add:hover {
-            background: #1d4ed8;
-        }
+.job-card {
+    background:
+        linear-gradient(
+            145deg,
+            rgba(20, 27, 48, 0.92),
+            rgba(12, 18, 35, 0.92)
+        );
 
-        .btn-delete {
-            background: #dc2626;
-            color: white;
-        }
+    border-radius: 15px;
 
-        .btn-delete:hover {
-            background: #b91c1c;
-        }
+    padding: 25px;
 
-        /* =========================
-           TABLE
-        ========================= */
+    margin-bottom: 25px;
 
-        .table-wrapper {
-            width: 100%;
-            overflow-x: auto;
-        }
+    border: 1px solid rgba(148, 163, 184, 0.15);
 
-        .skills-table {
-            width: 100%;
-            border-collapse: collapse;
-        }
+    box-shadow:
+        0 20px 45px rgba(0, 0, 0, 0.28),
+        0 0 30px rgba(124, 58, 237, 0.05);
 
-        .skills-table th,
-        .skills-table td {
-            padding: 14px;
-            text-align: left;
-            border-bottom: 1px solid #e5e7eb;
-        }
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+}
 
-        .skills-table th {
-            background: #f8fafc;
-            font-weight: bold;
-            color: #333;
-        }
+.job-card h2 {
+    margin-bottom: 15px;
 
-        .skills-table tr:hover {
-            background: #fafafa;
-        }
+    font-size: 23px;
 
-        .skills-table td {
-            color: #444;
-        }
+    color: #f8fafc;
+}
 
-        .importance {
-            font-weight: bold;
-        }
+/* =========================================================
+   JOB INFORMATION
+   ========================================================= */
 
-        .action-cell {
-            text-align: right;
-        }
+.job-info {
+    display: flex;
 
-        /* =========================
-           EMPTY MESSAGE
-        ========================= */
+    flex-wrap: wrap;
 
-        .empty {
-            text-align: center;
-            padding: 35px;
-            color: #777;
-            background: #f8fafc;
-            border-radius: 6px;
-        }
+    gap: 12px;
 
-        /* =========================
-           FLASH MESSAGES
-        ========================= */
+    color: #94a3b8;
 
-        .flash-container {
-            margin-bottom: 20px;
-        }
+    font-size: 14px;
+}
 
-        .flash {
-            padding: 13px 16px;
-            border-radius: 6px;
-            margin-bottom: 10px;
-            font-size: 14px;
-        }
+.job-info span {
+    background: rgba(139, 92, 246, 0.08);
 
-        .flash-success {
-            background: #dcfce7;
-            color: #166534;
-            border: 1px solid #bbf7d0;
-        }
+    color: #cbd5e1;
 
-        .flash-error {
-            background: #fee2e2;
-            color: #991b1b;
-            border: 1px solid #fecaca;
-        }
+    padding: 8px 12px;
 
-        .flash-info {
-            background: #dbeafe;
-            color: #1e40af;
-            border: 1px solid #bfdbfe;
-        }
+    border-radius: 7px;
 
-        /* =========================
-           MOBILE
-        ========================= */
+    border: 1px solid rgba(139, 92, 246, 0.16);
+}
 
-        @media (max-width: 768px) {
+/* =========================================================
+   SECTIONS
+   ========================================================= */
 
-            .container {
-                width: 95%;
-                margin: 20px auto;
-            }
+.section {
+    background:
+        linear-gradient(
+            145deg,
+            rgba(20, 27, 48, 0.92),
+            rgba(12, 18, 35, 0.92)
+        );
 
-            .top-bar {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 15px;
-            }
+    border-radius: 15px;
 
-            .top-bar h1 {
-                font-size: 24px;
-            }
+    padding: 25px;
 
-            .form-row {
-                grid-template-columns: 1fr;
-            }
+    margin-bottom: 25px;
 
-            .job-info {
-                flex-direction: column;
-                gap: 8px;
-            }
+    border: 1px solid rgba(148, 163, 184, 0.15);
 
-            .skills-table {
-                font-size: 13px;
-            }
+    box-shadow:
+        0 20px 45px rgba(0, 0, 0, 0.25);
 
-            .skills-table th,
-            .skills-table td {
-                padding: 10px;
-            }
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+}
 
-            .action-cell {
-                text-align: left;
-            }
-        }
-    </style>
+.section h2 {
+    margin-bottom: 20px;
+
+    font-size: 21px;
+
+    color: #f1f5f9;
+
+    position: relative;
+
+    padding-bottom: 11px;
+
+    border-bottom: 1px solid rgba(148, 163, 184, 0.14);
+}
+
+.section h2::after {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    bottom: -1px;
+
+    width: 55px;
+    height: 2px;
+
+    background: linear-gradient(
+        90deg,
+        #8b5cf6,
+        #22d3ee
+    );
+
+    border-radius: 10px;
+}
+
+/* =========================================================
+   FORM
+   ========================================================= */
+
+.form-row {
+    display: grid;
+
+    grid-template-columns: 1fr 220px auto;
+
+    gap: 15px;
+
+    align-items: end;
+}
+
+.form-group {
+    display: flex;
+
+    flex-direction: column;
+}
+
+.form-group label {
+    font-weight: 700;
+
+    margin-bottom: 8px;
+
+    font-size: 14px;
+
+    color: #cbd5e1;
+}
+
+/* =========================================================
+   SELECT
+   ========================================================= */
+
+.form-group select {
+    width: 100%;
+
+    height: 44px;
+
+    padding: 8px 12px;
+
+    border: 1px solid rgba(148, 163, 184, 0.20);
+
+    border-radius: 8px;
+
+    font-size: 15px;
+
+    color: #e5e7eb;
+
+    background-color: rgba(7, 12, 26, 0.78);
+
+    cursor: pointer;
+
+    outline: none;
+
+    transition:
+        border-color 0.25s ease,
+        box-shadow 0.25s ease,
+        background 0.25s ease;
+}
+
+.form-group select:hover {
+    border-color: rgba(148, 163, 184, 0.35);
+}
+
+.form-group select:focus {
+    border-color: #8b5cf6;
+
+    background-color: rgba(10, 17, 35, 0.95);
+
+    box-shadow:
+        0 0 0 3px rgba(139, 92, 246, 0.12),
+        0 0 20px rgba(139, 92, 246, 0.08);
+}
+
+.form-group select option {
+    background: #111827;
+
+    color: #e5e7eb;
+}
+
+/* =========================================================
+   IMPORTANCE DROPDOWN
+   ========================================================= */
+
+#importance {
+    height: 44px;
+
+    min-height: 44px;
+
+    line-height: normal;
+
+    padding: 8px 12px;
+
+    font-size: 15px;
+
+    color: #e5e7eb;
+
+    background: rgba(7, 12, 26, 0.78);
+}
+
+#importance option {
+    color: #e5e7eb;
+
+    background: #111827;
+
+    font-size: 15px;
+
+    padding: 8px;
+}
+
+/* =========================================================
+   BUTTONS
+   ========================================================= */
+
+.btn {
+    border: 1px solid transparent;
+
+    padding: 11px 18px;
+
+    min-height: 44px;
+
+    border-radius: 9px;
+
+    cursor: pointer;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    transition:
+        0.25s ease;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+}
+
+/* ADD BUTTON */
+
+.btn-add {
+    background: linear-gradient(
+        135deg,
+        #7c3aed,
+        #8b5cf6
+    );
+
+    color: white;
+
+    box-shadow:
+        0 7px 20px rgba(124, 58, 237, 0.22);
+}
+
+.btn-add:hover {
+    background: linear-gradient(
+        135deg,
+        #8b5cf6,
+        #06b6d4
+    );
+
+    box-shadow:
+        0 10px 26px rgba(139, 92, 246, 0.32);
+
+    transform: translateY(-2px);
+}
+
+/* DELETE BUTTON */
+
+.btn-delete {
+    background: rgba(220, 38, 38, 0.12);
+
+    color: #fca5a5;
+
+    border-color: rgba(248, 113, 113, 0.22);
+}
+
+.btn-delete:hover {
+    background: rgba(220, 38, 38, 0.22);
+
+    color: #fecaca;
+
+    border-color: rgba(248, 113, 113, 0.35);
+
+    transform: translateY(-1px);
+}
+
+/* =========================================================
+   TABLE
+   ========================================================= */
+
+.table-wrapper {
+    width: 100%;
+
+    overflow-x: auto;
+
+    border-radius: 10px;
+}
+
+.skills-table {
+    width: 100%;
+
+    border-collapse: collapse;
+
+    min-width: 650px;
+}
+
+.skills-table th,
+.skills-table td {
+    padding: 14px;
+
+    text-align: left;
+
+    border-bottom: 1px solid rgba(148, 163, 184, 0.12);
+}
+
+.skills-table th {
+    background: rgba(139, 92, 246, 0.08);
+
+    font-weight: 700;
+
+    color: #c4b5fd;
+
+    font-size: 13px;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.4px;
+}
+
+.skills-table tr {
+    transition: background 0.2s ease;
+}
+
+.skills-table tr:hover {
+    background: rgba(34, 211, 238, 0.035);
+}
+
+.skills-table td {
+    color: #cbd5e1;
+
+    font-size: 14px;
+}
+
+/* =========================================================
+   IMPORTANCE
+   ========================================================= */
+
+.importance {
+    font-weight: 700;
+
+    color: #a78bfa;
+}
+
+/* =========================================================
+   ACTION CELL
+   ========================================================= */
+
+.action-cell {
+    text-align: right;
+}
+
+/* =========================================================
+   EMPTY MESSAGE
+   ========================================================= */
+
+.empty {
+    text-align: center;
+
+    padding: 35px;
+
+    color: #64748b;
+
+    background: rgba(15, 23, 42, 0.55);
+
+    border-radius: 9px;
+
+    border: 1px dashed rgba(148, 163, 184, 0.18);
+}
+
+/* =========================================================
+   FLASH MESSAGES
+   ========================================================= */
+
+.flash-container {
+    margin-bottom: 20px;
+}
+
+.flash {
+    padding: 13px 16px;
+
+    border-radius: 9px;
+
+    margin-bottom: 10px;
+
+    font-size: 14px;
+
+    backdrop-filter: blur(10px);
+}
+
+/* SUCCESS */
+
+.flash-success {
+    background: rgba(22, 101, 52, 0.22);
+
+    color: #86efac;
+
+    border: 1px solid rgba(74, 222, 128, 0.22);
+}
+
+/* ERROR */
+
+.flash-error {
+    background: rgba(127, 29, 29, 0.22);
+
+    color: #fca5a5;
+
+    border: 1px solid rgba(248, 113, 113, 0.22);
+}
+
+/* INFO */
+
+.flash-info {
+    background: rgba(30, 64, 175, 0.20);
+
+    color: #93c5fd;
+
+    border: 1px solid rgba(96, 165, 250, 0.22);
+}
+
+/* =========================================================
+   ACCESSIBILITY
+   ========================================================= */
+
+button:focus-visible,
+a:focus-visible,
+select:focus-visible {
+    outline: 2px solid #22d3ee;
+
+    outline-offset: 3px;
+}
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 768px) {
+
+    .container {
+        width: 95%;
+
+        margin: 25px auto 45px;
+    }
+
+    .top-bar {
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 15px;
+    }
+
+    .top-bar h1 {
+        font-size: 24px;
+    }
+
+    .back-btn {
+        padding: 9px 15px;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+
+        gap: 16px;
+    }
+
+    .job-info {
+        flex-direction: column;
+
+        gap: 8px;
+    }
+
+    .job-info span {
+        width: fit-content;
+    }
+
+    .skills-table {
+        font-size: 13px;
+    }
+
+    .skills-table th,
+    .skills-table td {
+        padding: 10px;
+    }
+
+    .action-cell {
+        text-align: left;
+    }
+
+    .btn-delete {
+        width: auto;
+    }
+}
+
+/* =========================================================
+   SMALL MOBILE
+   ========================================================= */
+
+@media (max-width: 450px) {
+
+    .container {
+        width: 94%;
+
+        margin-top: 20px;
+    }
+
+    .job-card,
+    .section {
+        padding: 18px;
+
+        border-radius: 12px;
+    }
+
+    .top-bar h1 {
+        font-size: 21px;
+    }
+
+    .job-card h2 {
+        font-size: 20px;
+    }
+
+    .section h2 {
+        font-size: 18px;
+    }
+
+    .form-group select {
+        font-size: 14px;
+    }
+
+    .btn {
+        width: 100%;
+    }
+
+    .table-wrapper {
+        margin-top: 5px;
+    }
+}
+</style>
 </head>
 
 <body>
