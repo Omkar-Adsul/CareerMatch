@@ -1870,6 +1870,7 @@ def recommendations():
 # ADMIN DASHBOARD
 # ============================================================
 
+
 @app.route("/admin")
 @app.route("/admin/dashboard")
 @admin_required
@@ -1879,78 +1880,101 @@ def admin_dashboard():
     cur = None
 
     try:
-
         conn = get_db_connection()
+        cur = conn.cursor(cursor_factory=RealDictCursor)
 
-        cur = conn.cursor(
-            cursor_factory=RealDictCursor
-        )
-
-        cur.execute(
-            """
+        # Total users
+        cur.execute("""
             SELECT COUNT(*) AS count
             FROM users
             WHERE role = 'user'
-            """
-        )
-
+        """)
         users_count = cur.fetchone()["count"]
 
-        cur.execute(
-            """
+        # Total jobs
+        cur.execute("""
             SELECT COUNT(*) AS count
             FROM jobs
-            """
-        )
-
+        """)
         jobs_count = cur.fetchone()["count"]
 
-        cur.execute(
-            """
+        # Total applications
+        cur.execute("""
             SELECT COUNT(*) AS count
             FROM applications
-            """
-        )
-
+        """)
         applications_count = cur.fetchone()["count"]
 
-        cur.execute(
-            """
+        # Active jobs
+        cur.execute("""
             SELECT COUNT(*) AS count
             FROM jobs
             WHERE is_active = TRUE
-            """
-        )
-
+        """)
         active_jobs_count = cur.fetchone()["count"]
+
+        # Recent jobs
+        cur.execute("""
+            SELECT
+                job_id,
+                title,
+                company_name,
+                job_type,
+                location,
+                is_active,
+                created_at
+            FROM jobs
+            ORDER BY created_at DESC NULLS LAST,
+                     job_id DESC
+            LIMIT 5
+        """)
+        recent_jobs = cur.fetchall()
+
+        # Recent applications
+        cur.execute("""
+            SELECT
+                a.application_id,
+                a.status,
+                a.applied_at,
+                u.full_name,
+                u.email,
+                j.title,
+                j.company_name
+            FROM applications a
+            JOIN users u
+                ON a.user_id = u.user_id
+            JOIN jobs j
+                ON a.job_id = j.job_id
+            ORDER BY a.applied_at DESC NULLS LAST,
+                     a.application_id DESC
+            LIMIT 5
+        """)
+        recent_applications = cur.fetchall()
 
         return render_template(
             "admin_dashboard.html",
             users_count=users_count,
             jobs_count=jobs_count,
             applications_count=applications_count,
-            active_jobs_count=active_jobs_count
+            active_jobs_count=active_jobs_count,
+            recent_jobs=recent_jobs,
+            recent_applications=recent_applications
         )
 
     except Exception as e:
+        if conn:
+            conn.rollback()
 
-        print(
-            "ADMIN DASHBOARD ERROR:",
-            e
-        )
+        print("ADMIN DASHBOARD ERROR:", e)
 
         flash(
-            "Unable to load admin dashboard: "
-            + str(e),
+            "Unable to load admin dashboard: " + str(e),
             "error"
         )
 
-        return redirect(
-            url_for("index")
-        )
+        return redirect(url_for("index"))
 
     finally:
-
         if cur:
             cur.close()
 
