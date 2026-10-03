@@ -1,49 +1,40 @@
+
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>My Profile - CareerMatch</title>
+    <title>Profile - CareerMatch</title>
 
     <style>
-
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
         }
 
         body {
-            font-family: Arial, Helvetica, sans-serif;
-            background: #f4f7fb;
-            color: #1f2937;
-            line-height: 1.6;
+            background: #f4f6f9;
+            color: #222;
         }
 
         /* ================= NAVBAR ================= */
 
         .navbar {
-            background: #ffffff;
-            border-bottom: 1px solid #e5e7eb;
-
+            background: #1f2937;
+            color: white;
             padding: 15px 40px;
-
             display: flex;
             align-items: center;
             justify-content: space-between;
-
-            position: sticky;
-            top: 0;
-            z-index: 100;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
         }
 
         .logo {
-            text-decoration: none;
-            color: #2563eb;
-            font-size: 25px;
-            font-weight: 700;
+            font-size: 24px;
+            font-weight: bold;
         }
 
         .nav-links {
@@ -53,695 +44,493 @@
         }
 
         .nav-links a {
+            color: white;
             text-decoration: none;
-            color: #374151;
             font-size: 15px;
-            font-weight: 500;
         }
 
         .nav-links a:hover {
-            color: #2563eb;
+            color: #60a5fa;
         }
 
         .logout-btn {
-            color: #dc2626 !important;
+            background: #dc2626;
+            padding: 8px 15px;
+            border-radius: 6px;
         }
 
-        /* ================= MAIN ================= */
+        .logout-btn:hover {
+            background: #b91c1c;
+            color: white !important;
+        }
+
+        /* ================= CONTAINER ================= */
 
         .container {
             width: 92%;
-            max-width: 1150px;
-            margin: 35px auto 50px;
+            max-width: 1200px;
+            margin: 35px auto;
         }
 
-        /* ================= PAGE HEADER ================= */
-
-        .page-header {
+        .page-title {
             margin-bottom: 25px;
         }
 
-        .page-header h1 {
+        .page-title h1 {
             font-size: 30px;
             color: #111827;
-            margin-bottom: 5px;
         }
 
-        .page-header p {
+        .page-title p {
+            margin-top: 7px;
             color: #6b7280;
-            font-size: 15px;
         }
 
-        /* ================= FLASH ================= */
+        /* ================= FLASH MESSAGES ================= */
 
         .flash-container {
             margin-bottom: 20px;
         }
 
         .flash {
-            padding: 13px 16px;
-            border-radius: 8px;
+            padding: 12px 15px;
+            border-radius: 6px;
             margin-bottom: 10px;
-            font-size: 14px;
-        }
-
-        .flash-success {
-            background: #dcfce7;
-            color: #166534;
-        }
-
-        .flash-error {
-            background: #fee2e2;
-            color: #991b1b;
-        }
-
-        .flash-info {
             background: #dbeafe;
             color: #1e40af;
         }
 
-        /* ================= PROFILE GRID ================= */
+        /* ================= PROFILE CARD ================= */
 
-        .profile-grid {
-            display: grid;
-            grid-template-columns: 310px 1fr;
-            gap: 25px;
-            align-items: start;
-        }
-
-        /* ================= CARDS ================= */
-
-        .card {
-            background: #ffffff;
-            border-radius: 14px;
+        .profile-card {
+            background: white;
+            border-radius: 12px;
             padding: 25px;
-
-            border: 1px solid #e8ebef;
-
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-
+            box-shadow: 0 3px 12px rgba(0,0,0,0.08);
             margin-bottom: 25px;
         }
 
-        .card:last-child {
-            margin-bottom: 0;
+        .profile-header {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            padding-bottom: 25px;
+            border-bottom: 1px solid #e5e7eb;
         }
 
-        .card-title {
-            font-size: 20px;
-            font-weight: 700;
-            color: #111827;
-
-            margin-bottom: 5px;
-        }
-
-        .card-subtitle {
-            color: #6b7280;
-            font-size: 13px;
-            margin-bottom: 22px;
-        }
-
-        /* ================= PROFILE SUMMARY CARD ================= */
-
-        .profile-summary-card {
-            text-align: center;
-            position: sticky;
-            top: 90px;
-        }
-
-        .profile-avatar {
+        .profile-image {
             width: 100px;
             height: 100px;
-
-            margin: 0 auto 15px;
-
             border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #2563eb;
+        }
 
-            background: #e0edff;
-
+        .profile-placeholder {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: #2563eb;
+            color: white;
             display: flex;
             align-items: center;
             justify-content: center;
-
-            color: #2563eb;
-
             font-size: 38px;
-            font-weight: 700;
-
-            overflow: hidden;
+            font-weight: bold;
         }
 
-        .profile-avatar img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+        .profile-info h2 {
+            font-size: 25px;
+            margin-bottom: 7px;
         }
 
-        .profile-name {
-            font-size: 23px;
-            font-weight: 700;
-            color: #111827;
-        }
-
-        .profile-email {
-            font-size: 14px;
+        .profile-info p {
             color: #6b7280;
-            margin-top: 3px;
-            word-break: break-word;
+            margin-bottom: 5px;
         }
 
-        .profile-role {
+        .role-badge {
             display: inline-block;
-
-            margin-top: 12px;
-
-            padding: 6px 13px;
-
+            background: #dbeafe;
+            color: #1d4ed8;
+            padding: 5px 10px;
             border-radius: 20px;
-
-            background: #eef4ff;
-            color: #2563eb;
-
             font-size: 12px;
-            font-weight: 600;
+            margin-top: 5px;
         }
 
-        .profile-divider {
-            border: none;
-            border-top: 1px solid #eef0f3;
-            margin: 22px 0;
+        /* ================= GRID ================= */
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
         }
 
-        .quick-info {
-            text-align: left;
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+            margin-bottom: 25px;
         }
 
-        .quick-info-item {
-            display: flex;
-            justify-content: space-between;
-            gap: 10px;
-
-            padding: 10px 0;
-
-            border-bottom: 1px solid #f0f2f5;
-        }
-
-        .quick-info-item:last-child {
-            border-bottom: none;
-        }
-
-        .quick-label {
-            color: #6b7280;
-            font-size: 13px;
-        }
-
-        .quick-value {
+        .card h2 {
+            margin-bottom: 20px;
             color: #111827;
-            font-size: 13px;
-            font-weight: 600;
-            text-align: right;
+            font-size: 21px;
         }
 
         /* ================= FORM ================= */
 
-        .form-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 18px;
-        }
-
         .form-group {
-            display: flex;
-            flex-direction: column;
+            margin-bottom: 16px;
         }
 
-        .form-group.full-width {
-            grid-column: 1 / -1;
-        }
-
-        label {
-            font-size: 13px;
-            font-weight: 600;
-            color: #374151;
+        .form-group label {
+            display: block;
             margin-bottom: 7px;
-        }
-
-        input,
-        select,
-        textarea {
-            width: 100%;
-
-            border: 1px solid #d1d5db;
-
-            border-radius: 8px;
-
-            padding: 11px 13px;
-
+            font-weight: bold;
+            color: #374151;
             font-size: 14px;
-
-            color: #111827;
-
-            background: #ffffff;
-
-            outline: none;
-
-            transition: 0.2s;
         }
 
-        input:focus,
-        select:focus,
-        textarea:focus {
-            border-color: #2563eb;
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 11px 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            outline: none;
+            font-size: 14px;
+        }
 
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.10);
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: #2563eb;
+            box-shadow: 0 0 0 2px rgba(37,99,235,0.1);
         }
 
         textarea {
+            min-height: 100px;
             resize: vertical;
-            min-height: 110px;
         }
 
-        /* ================= BUTTON ================= */
+        .two-columns {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
 
-        .form-actions {
-            margin-top: 22px;
+        /* ================= BUTTONS ================= */
 
-            display: flex;
-            justify-content: flex-end;
+        .btn {
+            border: none;
+            padding: 11px 18px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
         }
 
         .btn-primary {
-            border: none;
-
             background: #2563eb;
             color: white;
-
-            padding: 12px 22px;
-
-            border-radius: 8px;
-
-            font-size: 14px;
-            font-weight: 600;
-
-            cursor: pointer;
-
-            transition: 0.2s;
         }
 
         .btn-primary:hover {
             background: #1d4ed8;
         }
 
-        /* ================= SKILLS ================= */
-
-        .skill-add-form {
-            display: grid;
-
-            grid-template-columns: 1fr 180px auto;
-
-            gap: 12px;
-
-            align-items: end;
-
-            margin-bottom: 22px;
+        .btn-danger {
+            background: #dc2626;
+            color: white;
         }
 
-        .skills-list {
-            display: flex;
-            flex-wrap: wrap;
+        .btn-danger:hover {
+            background: #b91c1c;
+        }
+
+        /* ================= PROFILE DETAILS ================= */
+
+        .details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .detail-box {
+            background: #f9fafb;
+            padding: 15px;
+            border-radius: 8px;
+        }
+
+        .detail-box strong {
+            display: block;
+            color: #374151;
+            margin-bottom: 5px;
+            font-size: 13px;
+        }
+
+        .detail-box span {
+            color: #111827;
+            font-size: 14px;
+        }
+
+        /* ================= SKILLS ================= */
+
+        .skill-form {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr auto;
             gap: 10px;
+            align-items: end;
+        }
+
+        .skill-list {
+            margin-top: 20px;
         }
 
         .skill-item {
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            gap: 8px;
+            padding: 13px 15px;
+            background: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 7px;
+            margin-bottom: 10px;
+        }
 
-            background: #eef4ff;
-
-            border: 1px solid #dbeafe;
-
-            color: #1d4ed8;
-
-            padding: 8px 10px 8px 13px;
-
-            border-radius: 20px;
-
-            font-size: 13px;
-            font-weight: 600;
+        .skill-name {
+            font-weight: bold;
+            color: #111827;
         }
 
         .skill-level {
             color: #6b7280;
-            font-size: 11px;
-            font-weight: 500;
+            font-size: 13px;
+            margin-left: 8px;
         }
 
-        .remove-skill {
-            width: 22px;
-            height: 22px;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            border-radius: 50%;
-
-            background: #ffffff;
-
-            color: #dc2626;
-
-            text-decoration: none;
-
-            font-size: 14px;
-            font-weight: 700;
+        .remove-form {
+            margin: 0;
         }
 
-        .remove-skill:hover {
+        .remove-btn {
             background: #fee2e2;
+            color: #b91c1c;
+            border: none;
+            padding: 7px 10px;
+            border-radius: 5px;
+            cursor: pointer;
         }
 
-        .no-skills {
-            color: #9ca3af;
-            font-size: 14px;
-            padding: 10px 0;
+        .remove-btn:hover {
+            background: #fecaca;
         }
 
         /* ================= RESUME ================= */
 
         .resume-box {
-            background: #f8fafc;
-
-            border: 1px solid #e5e7eb;
-
-            border-radius: 10px;
-
+            background: #f9fafb;
+            border-radius: 8px;
             padding: 15px;
-        }
-
-        .resume-box p {
-            color: #6b7280;
-            font-size: 13px;
-            margin-bottom: 8px;
         }
 
         .resume-box a {
             color: #2563eb;
             text-decoration: none;
-            font-size: 14px;
-            font-weight: 600;
-            word-break: break-all;
+            font-weight: bold;
         }
 
         .resume-box a:hover {
             text-decoration: underline;
         }
 
-        /* ================= FOOTER ================= */
+        /* ================= EMPTY ================= */
 
-        footer {
-            text-align: center;
-
-            padding: 30px;
-
+        .empty {
             color: #6b7280;
-
-            font-size: 14px;
+            text-align: center;
+            padding: 20px;
         }
 
         /* ================= RESPONSIVE ================= */
 
         @media (max-width: 900px) {
 
-            .profile-grid {
+            .grid {
                 grid-template-columns: 1fr;
             }
 
-            .profile-summary-card {
-                position: static;
-            }
-
-            .skill-add-form {
+            .skill-form {
                 grid-template-columns: 1fr;
             }
-        }
-
-        @media (max-width: 700px) {
 
             .navbar {
                 padding: 15px 20px;
-
                 flex-direction: column;
-
-                gap: 12px;
+                gap: 15px;
             }
 
             .nav-links {
                 flex-wrap: wrap;
-
                 justify-content: center;
-
                 gap: 15px;
-            }
-
-            .container {
-                width: 94%;
-                margin-top: 25px;
-            }
-
-            .form-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .form-group.full-width {
-                grid-column: auto;
-            }
-
-            .page-header h1 {
-                font-size: 26px;
             }
         }
 
+        @media (max-width: 600px) {
+
+            .container {
+                width: 95%;
+            }
+
+            .profile-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .two-columns,
+            .details {
+                grid-template-columns: 1fr;
+            }
+
+            .profile-card,
+            .card {
+                padding: 18px;
+            }
+        }
     </style>
 </head>
 
-
 <body>
 
+    <!-- ================= NAVBAR ================= -->
 
-<!-- ================= NAVBAR ================= -->
+    <nav class="navbar">
 
-<nav class="navbar">
+        <div class="logo">
+            CareerMatch
+        </div>
 
-    <a href="{{ url_for('dashboard') }}" class="logo">
-        CareerMatch
-    </a>
+        <div class="nav-links">
 
-    <div class="nav-links">
+            <a href="{{ url_for('dashboard') }}">
+                Dashboard
+            </a>
 
-        <a href="{{ url_for('dashboard') }}">
-            Dashboard
-        </a>
+            <a href="{{ url_for('profile') }}">
+                Profile
+            </a>
 
-        <a href="{{ url_for('profile') }}">
-            Profile
-        </a>
+            <a href="{{ url_for('jobs') }}">
+                Jobs & Internships
+            </a>
 
-        <a href="{{ url_for('jobs') }}">
-            Jobs & Internships
-        </a>
+            <a href="{{ url_for('my_applications') }}">
+                My Applications
+            </a>
 
-        <a href="{{ url_for('my_applications') }}">
-            My Applications
-        </a>
+            <a href="{{ url_for('recommendations') }}">
+                Recommendations
+            </a>
 
-        <a href="{{ url_for('recommendations') }}">
-            Recommendations
-        </a>
+            <a href="{{ url_for('logout') }}" class="logout-btn">
+                Logout
+            </a>
 
-        <a href="{{ url_for('logout') }}" class="logout-btn">
-            Logout
-        </a>
+        </div>
 
-    </div>
-
-</nav>
-
-
-<!-- ================= MAIN ================= -->
-
-<main class="container">
+    </nav>
 
 
-    <!-- PAGE HEADER -->
+    <!-- ================= MAIN ================= -->
 
-    <div class="page-header">
+    <div class="container">
 
-        <h1>
-            My Profile
-        </h1>
+        <div class="page-title">
 
-        <p>
-            Manage your personal information, education, skills and career preferences.
-        </p>
+            <h1>My Profile</h1>
 
-    </div>
+            <p>
+                Manage your personal information, education and skills.
+            </p>
+
+        </div>
 
 
-    <!-- ================= FLASH MESSAGES ================= -->
+        <!-- ================= FLASH MESSAGES ================= -->
 
-    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% with messages = get_flashed_messages(with_categories=true) %}
 
-        {% if messages %}
+            {% if messages %}
 
-            <div class="flash-container">
+                <div class="flash-container">
 
-                {% for category, message in messages %}
+                    {% for category, message in messages %}
 
-                    <div class="flash
-                        {% if category == 'success' %}
-                            flash-success
-                        {% elif category == 'error' %}
-                            flash-error
+                        <div class="flash">
+                            {{ message }}
+                        </div>
+
+                    {% endfor %}
+
+                </div>
+
+            {% endif %}
+
+        {% endwith %}
+
+
+        <!-- ================= PROFILE SUMMARY ================= -->
+
+        <div class="profile-card">
+
+            <div class="profile-header">
+
+                {% if user_profile and user_profile.profile_image %}
+
+                    <img
+                        src="{{ user_profile.profile_image }}"
+                        alt="Profile Image"
+                        class="profile-image"
+                    >
+
+                {% else %}
+
+                    <div class="profile-placeholder">
+
+                        {% if user_profile and user_profile.full_name %}
+                            {{ user_profile.full_name[0]|upper }}
                         {% else %}
-                            flash-info
+                            U
                         {% endif %}
-                    ">
-
-                        {{ message }}
 
                     </div>
 
-                {% endfor %}
-
-            </div>
-
-        {% endif %}
-
-    {% endwith %}
+                {% endif %}
 
 
-    <!-- ================= PROFILE GRID ================= -->
+                <div class="profile-info">
 
-    <div class="profile-grid">
+                    <h2>
+                        {{ user_profile.full_name if user_profile and user_profile.full_name else "User" }}
+                    </h2>
 
+                    <p>
+                        {{ user_profile.email if user_profile and user_profile.email else "Email not available" }}
+                    </p>
 
-        <!-- ================= LEFT PROFILE CARD ================= -->
+                    {% if user_profile and user_profile.role %}
 
-        <div>
-
-            <div class="card profile-summary-card">
-
-                <div class="profile-avatar">
-
-                    {% if user_profile.profile_image %}
-
-                        <img src="{{ user_profile.profile_image }}"
-                             alt="Profile Image">
-
-                    {% else %}
-
-                        {{ (user_profile.full_name or 'U')[0]|upper }}
+                        <span class="role-badge">
+                            {{ user_profile.role|capitalize }}
+                        </span>
 
                     {% endif %}
-
-                </div>
-
-
-                <div class="profile-name">
-
-                    {{ user_profile.full_name or 'User' }}
-
-                </div>
-
-
-                <div class="profile-email">
-
-                    {{ user_profile.email or 'Email not available' }}
-
-                </div>
-
-
-                <span class="profile-role">
-
-                    {% if user_profile.role %}
-
-                        {{ user_profile.role|capitalize }}
-
-                    {% else %}
-
-                        User
-
-                    {% endif %}
-
-                </span>
-
-
-                <hr class="profile-divider">
-
-
-                <div class="quick-info">
-
-
-                    <div class="quick-info-item">
-
-                        <span class="quick-label">
-                            Phone
-                        </span>
-
-                        <span class="quick-value">
-
-                            {{ user_profile.phone or 'Not added' }}
-
-                        </span>
-
-                    </div>
-
-
-                    <div class="quick-info-item">
-
-                        <span class="quick-label">
-                            College
-                        </span>
-
-                        <span class="quick-value">
-
-                            {{ user_profile.college_name or 'Not added' }}
-
-                        </span>
-
-                    </div>
-
-
-                    <div class="quick-info-item">
-
-                        <span class="quick-label">
-                            Degree
-                        </span>
-
-                        <span class="quick-value">
-
-                            {{ user_profile.degree or 'Not added' }}
-
-                        </span>
-
-                    </div>
-
-
-                    <div class="quick-info-item">
-
-                        <span class="quick-label">
-                            Graduation
-                        </span>
-
-                        <span class="quick-value">
-
-                            {{ user_profile.graduation_year or 'Not added' }}
-
-                        </span>
-
-                    </div>
-
 
                 </div>
 
@@ -750,138 +539,278 @@
         </div>
 
 
-        <!-- ================= RIGHT CONTENT ================= -->
+        <!-- ================= PROFILE DETAILS ================= -->
 
-        <div>
+        <div class="card">
+
+            <h2>Profile Information</h2>
+
+            <div class="details">
+
+                <div class="detail-box">
+
+                    <strong>Full Name</strong>
+
+                    <span>
+                        {{ user_profile.full_name if user_profile and user_profile.full_name else "Not provided" }}
+                    </span>
+
+                </div>
 
 
-            <!-- ================= PERSONAL INFORMATION ================= -->
+                <div class="detail-box">
+
+                    <strong>Email</strong>
+
+                    <span>
+                        {{ user_profile.email if user_profile and user_profile.email else "Not provided" }}
+                    </span>
+
+                </div>
+
+
+                <div class="detail-box">
+
+                    <strong>Phone</strong>
+
+                    <span>
+                        {{ user_profile.phone if user_profile and user_profile.phone else "Not provided" }}
+                    </span>
+
+                </div>
+
+
+                <div class="detail-box">
+
+                    <strong>College</strong>
+
+                    <span>
+                        {{ user_profile.college_name if user_profile and user_profile.college_name else "Not provided" }}
+                    </span>
+
+                </div>
+
+
+                <div class="detail-box">
+
+                    <strong>Degree</strong>
+
+                    <span>
+                        {{ user_profile.degree if user_profile and user_profile.degree else "Not provided" }}
+                    </span>
+
+                </div>
+
+
+                <div class="detail-box">
+
+                    <strong>Graduation Year</strong>
+
+                    <span>
+                        {{ user_profile.graduation_year if user_profile and user_profile.graduation_year else "Not provided" }}
+                    </span>
+
+                </div>
+
+
+                <div class="detail-box">
+
+                    <strong>Preferred Role</strong>
+
+                    <span>
+                        {{ user_profile.preferred_role if user_profile and user_profile.preferred_role else "Not provided" }}
+                    </span>
+
+                </div>
+
+
+                <div class="detail-box">
+
+                    <strong>Preferred Location</strong>
+
+                    <span>
+                        {{ user_profile.preferred_location if user_profile and user_profile.preferred_location else "Not provided" }}
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ================= MAIN GRID ================= -->
+
+        <div class="grid">
+
+
+            <!-- ================= UPDATE PROFILE ================= -->
 
             <div class="card">
 
-                <h2 class="card-title">
-                    Personal Information
-                </h2>
+                <h2>Update Profile</h2>
 
-                <p class="card-subtitle">
-                    Update your basic personal details.
-                </p>
+                <form
+                    method="POST"
+                    action="{{ url_for('update_profile') }}"
+                >
+
+                    <div class="form-group">
+
+                        <label>Phone Number</label>
+
+                        <input
+                            type="text"
+                            name="phone"
+                            value="{{ user_profile.phone if user_profile and user_profile.phone else '' }}"
+                            placeholder="Enter phone number"
+                        >
+
+                    </div>
 
 
-                <form method="POST"
-                      action="{{ url_for('update_profile') }}">
-
-
-                    <div class="form-grid">
-
-
-                        <!-- FULL NAME -->
+                    <div class="two-columns">
 
                         <div class="form-group">
 
-                            <label for="full_name">
-                                Full Name
-                            </label>
+                            <label>Education</label>
 
                             <input
                                 type="text"
-                                id="full_name"
-                                name="full_name"
-                                value="{{ user_profile.full_name or '' }}"
-                                required
+                                name="education"
+                                value="{{ user_profile.education if user_profile and user_profile.education else '' }}"
+                                placeholder="e.g. Graduation"
                             >
 
                         </div>
 
 
-                        <!-- EMAIL -->
-
                         <div class="form-group">
 
-                            <label for="email">
-                                Email
-                            </label>
-
-                            <input
-                                type="email"
-                                id="email"
-                                value="{{ user_profile.email or '' }}"
-                                disabled
-                            >
-
-                        </div>
-
-
-                        <!-- PHONE -->
-
-                        <div class="form-group">
-
-                            <label for="phone">
-                                Phone Number
-                            </label>
+                            <label>Degree</label>
 
                             <input
                                 type="text"
-                                id="phone"
-                                name="phone"
-                                value="{{ user_profile.phone or '' }}"
-                                placeholder="Enter phone number"
+                                name="degree"
+                                value="{{ user_profile.degree if user_profile and user_profile.degree else '' }}"
+                                placeholder="e.g. B.Sc. Computer Science"
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="two-columns">
+
+                        <div class="form-group">
+
+                            <label>Graduation Year</label>
+
+                            <input
+                                type="number"
+                                name="graduation_year"
+                                value="{{ user_profile.graduation_year if user_profile and user_profile.graduation_year else '' }}"
+                                placeholder="2027"
                             >
 
                         </div>
 
 
-                        <!-- DATE OF BIRTH -->
+                        <div class="form-group">
+
+                            <label>Experience (Years)</label>
+
+                            <input
+                                type="number"
+                                step="0.1"
+                                name="experience_years"
+                                value="{{ user_profile.experience_years if user_profile and user_profile.experience_years else '' }}"
+                                placeholder="0"
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>Preferred Job Role</label>
+
+                        <input
+                            type="text"
+                            name="preferred_role"
+                            value="{{ user_profile.preferred_role if user_profile and user_profile.preferred_role else '' }}"
+                            placeholder="e.g. Python Developer"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>Preferred Location</label>
+
+                        <input
+                            type="text"
+                            name="preferred_location"
+                            value="{{ user_profile.preferred_location if user_profile and user_profile.preferred_location else '' }}"
+                            placeholder="e.g. Pune"
+                        >
+
+                    </div>
+
+
+                    <div class="two-columns">
 
                         <div class="form-group">
 
-                            <label for="date_of_birth">
-                                Date of Birth
-                            </label>
+                            <label>Date of Birth</label>
 
                             <input
                                 type="date"
-                                id="date_of_birth"
                                 name="date_of_birth"
-                                value="{{ user_profile.date_of_birth or '' }}"
+                                value="{{ user_profile.date_of_birth if user_profile and user_profile.date_of_birth else '' }}"
                             >
 
                         </div>
 
 
-                        <!-- GENDER -->
-
                         <div class="form-group">
 
-                            <label for="gender">
-                                Gender
-                            </label>
+                            <label>Gender</label>
 
-                            <select id="gender"
-                                    name="gender">
+                            <select name="gender">
 
                                 <option value="">
                                     Select Gender
                                 </option>
 
-                                <option value="Male"
-                                    {% if user_profile.gender == 'Male' %}
+                                <option
+                                    value="Male"
+                                    {% if user_profile and user_profile.gender == 'Male' %}
                                         selected
-                                    {% endif %}>
+                                    {% endif %}
+                                >
                                     Male
                                 </option>
 
-                                <option value="Female"
-                                    {% if user_profile.gender == 'Female' %}
+                                <option
+                                    value="Female"
+                                    {% if user_profile and user_profile.gender == 'Female' %}
                                         selected
-                                    {% endif %}>
+                                    {% endif %}
+                                >
                                     Female
                                 </option>
 
-                                <option value="Other"
-                                    {% if user_profile.gender == 'Other' %}
+                                <option
+                                    value="Other"
+                                    {% if user_profile and user_profile.gender == 'Other' %}
                                         selected
-                                    {% endif %}>
+                                    {% endif %}
+                                >
                                     Other
                                 </option>
 
@@ -889,213 +818,67 @@
 
                         </div>
 
+                    </div>
 
-                        <!-- COLLEGE -->
 
-                        <div class="form-group">
+                    <div class="form-group">
 
-                            <label for="college_name">
-                                College Name
-                            </label>
+                        <label>College Name</label>
 
-                            <input
-                                type="text"
-                                id="college_name"
-                                name="college_name"
-                                value="{{ user_profile.college_name or '' }}"
-                                placeholder="Enter college name"
-                            >
-
-                        </div>
-
+                        <input
+                            type="text"
+                            name="college_name"
+                            value="{{ user_profile.college_name if user_profile and user_profile.college_name else '' }}"
+                            placeholder="Enter college name"
+                        >
 
                     </div>
 
 
-                    <div class="form-actions">
+                    <div class="form-group">
 
-                        <button type="submit"
-                                class="btn-primary">
+                        <label>Resume URL</label>
 
-                            Save Personal Information
-
-                        </button>
-
-                    </div>
-
-                </form>
-
-            </div>
-
-
-            <!-- ================= EDUCATION ================= -->
-
-            <div class="card">
-
-                <h2 class="card-title">
-                    Education & Career
-                </h2>
-
-                <p class="card-subtitle">
-                    Add your academic background and career preferences.
-                </p>
-
-
-                <form method="POST"
-                      action="{{ url_for('update_profile') }}">
-
-
-                    <div class="form-grid">
-
-
-                        <!-- EDUCATION -->
-
-                        <div class="form-group">
-
-                            <label for="education">
-                                Education
-                            </label>
-
-                            <input
-                                type="text"
-                                id="education"
-                                name="education"
-                                value="{{ user_profile.education or '' }}"
-                                placeholder="e.g. Undergraduate"
-                            >
-
-                        </div>
-
-
-                        <!-- DEGREE -->
-
-                        <div class="form-group">
-
-                            <label for="degree">
-                                Degree
-                            </label>
-
-                            <input
-                                type="text"
-                                id="degree"
-                                name="degree"
-                                value="{{ user_profile.degree or '' }}"
-                                placeholder="e.g. B.Sc. Computer Science"
-                            >
-
-                        </div>
-
-
-                        <!-- GRADUATION YEAR -->
-
-                        <div class="form-group">
-
-                            <label for="graduation_year">
-                                Graduation Year
-                            </label>
-
-                            <input
-                                type="number"
-                                id="graduation_year"
-                                name="graduation_year"
-                                value="{{ user_profile.graduation_year or '' }}"
-                                placeholder="e.g. 2027"
-                                min="2000"
-                                max="2100"
-                            >
-
-                        </div>
-
-
-                        <!-- EXPERIENCE -->
-
-                        <div class="form-group">
-
-                            <label for="experience_years">
-                                Experience (Years)
-                            </label>
-
-                            <input
-                                type="number"
-                                id="experience_years"
-                                name="experience_years"
-                                value="{{ user_profile.experience_years or 0 }}"
-                                placeholder="e.g. 1"
-                                min="0"
-                                step="0.1"
-                            >
-
-                        </div>
-
-
-                        <!-- PREFERRED ROLE -->
-
-                        <div class="form-group">
-
-                            <label for="preferred_role">
-                                Preferred Job Role
-                            </label>
-
-                            <input
-                                type="text"
-                                id="preferred_role"
-                                name="preferred_role"
-                                value="{{ user_profile.preferred_role or '' }}"
-                                placeholder="e.g. Data Analyst"
-                            >
-
-                        </div>
-
-
-                        <!-- PREFERRED LOCATION -->
-
-                        <div class="form-group">
-
-                            <label for="preferred_location">
-                                Preferred Location
-                            </label>
-
-                            <input
-                                type="text"
-                                id="preferred_location"
-                                name="preferred_location"
-                                value="{{ user_profile.preferred_location or '' }}"
-                                placeholder="e.g. Pune"
-                            >
-
-                        </div>
-
-
-                        <!-- PROFILE SUMMARY -->
-
-                        <div class="form-group full-width">
-
-                            <label for="profile_summary">
-                                Profile Summary
-                            </label>
-
-                            <textarea
-                                id="profile_summary"
-                                name="profile_summary"
-                                placeholder="Write a short summary about your education, skills and career goals..."
-                            >{{ user_profile.profile_summary or '' }}</textarea>
-
-                        </div>
-
+                        <input
+                            type="url"
+                            name="resume_url"
+                            value="{{ user_profile.resume_url if user_profile and user_profile.resume_url else '' }}"
+                            placeholder="https://..."
+                        >
 
                     </div>
 
 
-                    <div class="form-actions">
+                    <div class="form-group">
 
-                        <button type="submit"
-                                class="btn-primary">
+                        <label>Profile Summary</label>
 
-                            Save Education & Career
-
-                        </button>
+                        <textarea
+                            name="profile_summary"
+                            placeholder="Write a short professional summary..."
+                        >{{ user_profile.profile_summary if user_profile and user_profile.profile_summary else '' }}</textarea>
 
                     </div>
+
+
+                    <div class="form-group">
+
+                        <label>Bio</label>
+
+                        <textarea
+                            name="bio"
+                            placeholder="Tell us about yourself..."
+                        >{{ user_profile.bio if user_profile and user_profile.bio else '' }}</textarea>
+
+                    </div>
+
+
+                    <button
+                        type="submit"
+                        class="btn btn-primary"
+                    >
+                        Save Profile
+                    </button>
 
                 </form>
 
@@ -1106,174 +889,167 @@
 
             <div class="card">
 
-                <h2 class="card-title">
-                    Skills
-                </h2>
-
-                <p class="card-subtitle">
-                    Add the technical skills you have and specify your proficiency.
-                </p>
+                <h2>My Skills</h2>
 
 
-                <!-- ADD SKILL -->
+                <form
+                    method="POST"
+                    action="{{ url_for('add_skill') }}"
+                >
 
-                <form method="POST"
-                      action="{{ url_for('add_skill') }}"
-                      class="skill-add-form">
+                    <div class="skill-form">
 
+                        <div class="form-group">
 
-                    <div class="form-group">
+                            <label>Skill</label>
 
-                        <label for="skill_id">
-                            Skill
-                        </label>
+                            <select name="skill_id" required>
 
-                        <select id="skill_id"
-                                name="skill_id"
-                                required>
-
-                            <option value="">
-                                Select Skill
-                            </option>
-
-                            {% for skill in all_skills %}
-
-                                <option value="{{ skill.skill_id }}">
-
-                                    {{ skill.skill_name }}
-
+                                <option value="">
+                                    Select Skill
                                 </option>
 
-                            {% endfor %}
+                                {% for skill in all_skills %}
 
-                        </select>
+                                    <option value="{{ skill.skill_id }}">
+                                        {{ skill.skill_name }}
+                                    </option>
+
+                                {% endfor %}
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>Level</label>
+
+                            <select name="skill_level">
+
+                                <option value="">
+                                    Select
+                                </option>
+
+                                <option value="Beginner">
+                                    Beginner
+                                </option>
+
+                                <option value="Intermediate">
+                                    Intermediate
+                                </option>
+
+                                <option value="Advanced">
+                                    Advanced
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>Proficiency</label>
+
+                            <select name="proficiency">
+
+                                <option value="">
+                                    Select
+                                </option>
+
+                                <option value="Beginner">
+                                    Beginner
+                                </option>
+
+                                <option value="Intermediate">
+                                    Intermediate
+                                </option>
+
+                                <option value="Advanced">
+                                    Advanced
+                                </option>
+
+                                <option value="Expert">
+                                    Expert
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <button
+                            type="submit"
+                            class="btn btn-primary"
+                        >
+                            Add
+                        </button>
 
                     </div>
-
-
-                    <div class="form-group">
-
-                        <label for="proficiency">
-                            Proficiency
-                        </label>
-
-                        <select id="proficiency"
-                                name="proficiency"
-                                required>
-
-                            <option value="Beginner">
-                                Beginner
-                            </option>
-
-                            <option value="Intermediate">
-                                Intermediate
-                            </option>
-
-                            <option value="Advanced">
-                                Advanced
-                            </option>
-
-                            <option value="Expert">
-                                Expert
-                            </option>
-
-                        </select>
-
-                    </div>
-
-
-                    <button type="submit"
-                            class="btn-primary">
-
-                        + Add Skill
-
-                    </button>
 
                 </form>
 
 
-                <!-- USER SKILLS -->
+                <!-- ================= USER SKILL LIST ================= -->
 
-                {% if user_skills %}
+                <div class="skill-list">
 
-                    <div class="skills-list">
+                    {% if user_skills %}
 
                         {% for skill in user_skills %}
 
                             <div class="skill-item">
 
-                                {{ skill.skill_name }}
+                                <div>
 
-                                <span class="skill-level">
+                                    <span class="skill-name">
+                                        {{ skill.skill_name }}
+                                    </span>
 
-                                    {{ skill.proficiency or skill.skill_level or 'Not specified' }}
+                                    {% if skill.proficiency %}
 
-                                </span>
+                                        <span class="skill-level">
+                                            {{ skill.proficiency }}
+                                        </span>
 
-                                <a
-                                    href="{{ url_for('remove_skill', skill_id=skill.skill_id) }}"
-                                    class="remove-skill"
-                                    title="Remove skill"
-                                    onclick="return confirm('Remove this skill?');"
+                                    {% elif skill.skill_level %}
+
+                                        <span class="skill-level">
+                                            {{ skill.skill_level }}
+                                        </span>
+
+                                    {% endif %}
+
+                                </div>
+
+
+                                <form
+                                    method="POST"
+                                    action="{{ url_for('remove_skill', skill_id=skill.skill_id) }}"
+                                    class="remove-form"
                                 >
 
-                                    ×
+                                    <button
+                                        type="submit"
+                                        class="remove-btn"
+                                        onclick="return confirm('Remove this skill?');"
+                                    >
+                                        Remove
+                                    </button>
 
-                                </a>
+                                </form>
 
                             </div>
 
                         {% endfor %}
 
-                    </div>
-
-                {% else %}
-
-                    <div class="no-skills">
-
-                        No skills added yet. Add your skills above.
-
-                    </div>
-
-                {% endif %}
-
-            </div>
-
-
-            <!-- ================= RESUME ================= -->
-
-            <div class="card">
-
-                <h2 class="card-title">
-                    Resume
-                </h2>
-
-                <p class="card-subtitle">
-                    Add a link to your resume for job and internship applications.
-                </p>
-
-
-                <div class="resume-box">
-
-                    {% if user_profile.resume_url %}
-
-                        <p>
-                            Your current resume:
-                        </p>
-
-                        <a href="{{ user_profile.resume_url }}"
-                           target="_blank"
-                           rel="noopener noreferrer">
-
-                            {{ user_profile.resume_url }}
-
-                        </a>
-
                     {% else %}
 
-                        <p>
-                            No resume link added yet.
-                        </p>
+                        <div class="empty">
+                            No skills added yet.
+                        </div>
 
                     {% endif %}
 
@@ -1281,23 +1057,74 @@
 
             </div>
 
+        </div>
+
+
+        <!-- ================= RESUME ================= -->
+
+        <div class="card">
+
+            <h2>Resume</h2>
+
+            <div class="resume-box">
+
+                {% if user_profile and user_profile.resume_url %}
+
+                    <a
+                        href="{{ user_profile.resume_url }}"
+                        target="_blank"
+                    >
+                        View Resume
+                    </a>
+
+                {% else %}
+
+                    <span>
+                        No resume added yet.
+                    </span>
+
+                {% endif %}
+
+            </div>
 
         </div>
 
+
+        <!-- ================= BIO ================= -->
+
+        {% if user_profile and user_profile.bio %}
+
+            <div class="card">
+
+                <h2>About Me</h2>
+
+                <p style="line-height: 1.7; color: #4b5563;">
+                    {{ user_profile.bio }}
+                </p>
+
+            </div>
+
+        {% endif %}
+
+
+        <!-- ================= PROFILE SUMMARY ================= -->
+
+        {% if user_profile and user_profile.profile_summary %}
+
+            <div class="card">
+
+                <h2>Professional Summary</h2>
+
+                <p style="line-height: 1.7; color: #4b5563;">
+                    {{ user_profile.profile_summary }}
+                </p>
+
+            </div>
+
+        {% endif %}
+
     </div>
-
-</main>
-
-
-<!-- ================= FOOTER ================= -->
-
-<footer>
-
-    © 2026 CareerMatch –
-    AI-Powered Job & Internship Recommendation Platform
-
-</footer>
-
 
 </body>
 </html>
+
