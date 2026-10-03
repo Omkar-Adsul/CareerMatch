@@ -84,6 +84,8 @@ def index():
         return redirect(url_for("dashboard"))
 
     return render_template("index.html")
+    
+    
 
 
 # ============================================================
