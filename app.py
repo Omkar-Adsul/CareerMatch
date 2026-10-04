@@ -22,7 +22,6 @@ app.config.from_object(Config)
 def get_db_connection():
 
     return psycopg2.connect(
-
         host=app.config["DB_HOST"],
         port=app.config["DB_PORT"],
         database=app.config["DB_NAME"],
